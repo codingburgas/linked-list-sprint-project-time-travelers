@@ -17,9 +17,11 @@ project "PL"
 
     files { "./TimeTravelers/PL/src/**.cpp", "./TimeTravelers/PL/include/**.h", "TimeTravelers/PL/assets/**.png" }
     
-    includedirs { "./TimeTravelers/PL/include",  "./TimeTravelers/BLL/include", "./TimeTravelers/DAL/include" }
+    includedirs { "./TimeTravelers/PL/include", "./TimeTravelers/BLL/include", "./TimeTravelers/DAL/include", "./vendor/json/include" }
 
-    links { "TimeTravelers/BLL", "TimeTravelers/DAL" }
+    libdirs { "bin/" .. outputdir .. "/BLL", "bin/" .. outputdir .. "/DAL" }
+    
+    links { "BLL", "DAL" }
 
     staticruntime "On"
     systemversion "latest"
@@ -39,12 +41,12 @@ project "BLL"
     language "C++"
     cppdialect "C++20"
 
-    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+    targetdir ("bin/" .. outputdir .. "/TimeTravelers/BLL")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
     files { "./TimeTravelers/BLL/src/**.cpp", "./TimeTravelers/BLL/include/**.h" }
 
-    includedirs { "./TimeTravelers/BLL/include" }
+    includedirs { "./TimeTravelers/BLL/include", "./vendor/json/include" }
 
     staticruntime "On"
     systemversion "latest"
@@ -64,11 +66,11 @@ project "DAL"
     language "C++"
     cppdialect "C++20"
 
-    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+    targetdir ("bin/" .. outputdir .. "/TimeTravelers/DAL")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
     files { "./TimeTravelers/DAL/src/**.cpp", "./TimeTravelers/DAL/include/**.h" }
-    includedirs { "./TimeTravelers/DAL/include" }
+    includedirs { "./TimeTravelers/DAL/include", "./vendor/json/include" }
 
     staticruntime "On"
     systemversion "latest"

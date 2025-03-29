@@ -1,5 +1,5 @@
-#include "precompile.h"
+#include "app.h"
 
 int main() {
-	std::cout << "Hello, world!\n";
+	App app;
 }
