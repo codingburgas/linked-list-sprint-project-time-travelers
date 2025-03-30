@@ -5,9 +5,11 @@ void MainMenu::displayMainMenu() {
     std::cout << std::setw(97) << "==========================================================================\n";
     std::cout << std::setw(97) << "|                                MAIN MENU                               |\n";
     std::cout << std::setw(97) << "==========================================================================\n";
+    std::cout << std::setw(97) << "|                                                                        |\n";
     std::cout << std::setw(97) << "|                                1. Login                                |\n";
     std::cout << std::setw(97) << "|                                2. Register                             |\n";
     std::cout << std::setw(97) << "|                                3. Exit                                 |\n";
+    std::cout << std::setw(97) << "|                                                                        |\n";
     std::cout << std::setw(97) << "==========================================================================\n";
     std::cout << std::setw(60) << "Enter your choice: ";
 
@@ -37,7 +39,6 @@ void MainMenu::loginHandler() {
     std::cout << '\n';
     drawTeamName();
 
-    // Printing the header and border
     std::cout << std::setw(97) << "==========================================================================\n";
     std::cout << std::setw(97) << "|                                LOGIN                                   |\n";
     std::cout << std::setw(97) << "==========================================================================\n";
@@ -64,26 +65,44 @@ void MainMenu::loginHandler() {
 
 void MainMenu::registerHandler() {
     system("cls");
+    std::cout << '\n';
 
-    std::cout << "Enter your email: ";
+    drawTeamName();
+
+    std::cout << std::setw(97) << "==========================================================================\n";
+    std::cout << std::setw(97) << "|                                REGISTER                                |\n";
+    std::cout << std::setw(97) << "==========================================================================\n";
+    std::cout << std::setw(97) << "|                                                                        |\n";
+    std::cout << std::setw(56) << "                    Enter your email: ";
     std::cin >> email;
+    std::cout << std::setw(97) << "|                                                                        |\n";
     emailValidation();
 
-
-    std::cout << "\nEnter your username: ";
+    std::cout << std::setw(97) << "|                                                                        |\n";
+    std::cout << std::setw(59) << "                    Enter your username: ";
     std::cin >> username;
+    std::cout << std::setw(97) << "|                                                                        |\n";
     usernameValidation();
 
-    std::cout << "\nEnter your password: ";
+    std::cout << std::setw(97) << "|                                                                        |\n";
+    std::cout << std::setw(56) << "                    Enter your pasword: ";
     std::cin >> password;
     passwordValidation();
-
-    std::cout << "\nConfirm password: ";
+    
+    std::cout << std::setw(97) << "|                                                                        |\n";
+    std::cout << std::setw(97) << "|                                                                        |\n";
+    std::cout << std::setw(56) << "                    Confirm Password: ";
     std::cin >> confirmPassword;
     passwordMatch();
 
+    std::cout << std::setw(97) << "|                                                                        |\n";
+    std::cout << std::setw(97) << "|                                                                        |\n";
+    std::cout << std::setw(97) << "==========================================================================\n";
+
+
     if (RegisterManager::registerUser(username, password)) {
         std::cout << "User registered successfully!\n";
+        Sleep(1500);
         MainMenu::loginHandler();
     }
     else {
