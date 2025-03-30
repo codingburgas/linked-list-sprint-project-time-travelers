@@ -1,27 +1,30 @@
 #include "mainMenu.h"
 
-
 void MainMenu::displayMainMenu() {
-    std::cout << " _____ _                  _____                    _ _               " << std::endl;
-    std::cout << "|_   _(_)_ __ ___   ___  |_   _| __ __ ___   _____| | | ___ _ __ ___ " << std::endl;
-    std::cout << "  | | | | '_ ` _ \\ / _ \\   | || '__/ _` \\ \\ / / _ \\ | |/ _ \\ '__/ __|" << std::endl;
-    std::cout << "  | | | | | | | | |  __/   | || | | (_| |\\ V /  __/ | |  __/ |  \\__ \\" << std::endl;
-    std::cout << "  |_| |_|_| |_| |_|\\___|   |_||_|  \\__,_| \\_/ \\___|_|_|\\___|_|  |___/" << std::endl;
+    std::cout << std::setw(94) << "       _____ _                  _____                    _ _               \n";
+    std::cout << std::setw(94) << "      |_   _(_)_ __ ___   ___  |_   _| __ __ ___   _____| | | ___ _ __ ___ \n";
+    std::cout << std::setw(94) << "        | | | | '_ ` _ \\ / _ \\   | || '__/ _` \\ \\ / / _ \\ | |/ _ \\ '__/ __|\n";
+    std::cout << std::setw(94) << "        | | | | | | | | |  __/   | || | | (_| |\\ V /  __/ | |  __/ |  \\__ \\\n";
+    std::cout << std::setw(94) << "        |_| |_|_| |_| |_|\\___|   |_||_|  \\\__,_| \\_/ \\___|_|_|\\___|_|  |___/\n";
+    std::cout << '\n';
+    std::cout << std::setw(97) << "==========================================================================\n";
+    std::cout << std::setw(97) << "|                                MAIN MENU                               |\n";
+    std::cout << std::setw(97) << "==========================================================================\n";
+    std::cout << std::setw(97) << "|                                1. Login                                |\n";
+    std::cout << std::setw(97) << "|                                2. Register                             |\n";
+    std::cout << std::setw(97) << "|                                3. Exit                                 |\n";
+    std::cout << std::setw(97) << "==========================================================================\n";
+    std::cout << std::setw(60) << "Enter your choice: ";
 
-    
-
-    std::cout << "1. Login\n";
-    std::cout << "2. Register\n";
-    std::cout << "3. Exit\n";
-
-    std::cout << "Enter your choice: ";
     std::cin >> choice;
 
     switch (choice) {
     case 1: MainMenu::loginHandler(); break;
     case 2: MainMenu::registerHandler(); break;
     case 3: break;
-    default: std::cout << "Invalid input. Please try again!\n"; return;
+    default:
+        std::cout << "Invalid input. Please try again!\n";
+        return;
     }
 }
 
