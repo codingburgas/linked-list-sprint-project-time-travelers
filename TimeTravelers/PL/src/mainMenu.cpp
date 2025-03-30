@@ -1,12 +1,7 @@
 #include "mainMenu.h"
 
 void MainMenu::displayMainMenu() {
-    std::cout << std::setw(94) << "       _____ _                  _____                    _ _               \n";
-    std::cout << std::setw(94) << "      |_   _(_)_ __ ___   ___  |_   _| __ __ ___   _____| | | ___ _ __ ___ \n";
-    std::cout << std::setw(94) << "        | | | | '_ ` _ \\ / _ \\   | || '__/ _` \\ \\ / / _ \\ | |/ _ \\ '__/ __|\n";
-    std::cout << std::setw(94) << "        | | | | | | | | |  __/   | || | | (_| |\\ V /  __/ | |  __/ |  \\__ \\\n";
-    std::cout << std::setw(94) << "        |_| |_|_| |_| |_|\\___|   |_||_|  \\\__,_| \\_/ \\___|_|_|\\___|_|  |___/\n";
-    std::cout << '\n';
+    drawTeamName();
     std::cout << std::setw(97) << "==========================================================================\n";
     std::cout << std::setw(97) << "|                                MAIN MENU                               |\n";
     std::cout << std::setw(97) << "==========================================================================\n";
@@ -28,20 +23,44 @@ void MainMenu::displayMainMenu() {
     }
 }
 
+void MainMenu::drawTeamName() {
+    std::cout << std::setw(94) << "       _____ _                  _____                    _ _               \n";
+    std::cout << std::setw(94) << "      |_   _(_)_ __ ___   ___  |_   _| __ __ ___   _____| | | ___ _ __ ___ \n";
+    std::cout << std::setw(94) << "        | | | | '_ ` _ \\ / _ \\   | || '__/ _` \\ \\ / / _ \\ | |/ _ \\ '__/ __|\n";
+    std::cout << std::setw(94) << "        | | | | | | | | |  __/   | || | | (_| |\\ V /  __/ | |  __/ |  \\__ \\\n";
+    std::cout << std::setw(94) << "        |_| |_|_| |_| |_|\\___|   |_||_|  \\\__,_| \\_/ \\___|_|_|\\___|_|  |___/\n";
+    std::cout << '\n';
+}
+
 void MainMenu::loginHandler() {
     system("cls");
-    
-    std::cout << "Enter your username: ";
-    std::cin >> userName;
+    std::cout << '\n';
+    drawTeamName();
 
-    std::cout << "\nEnter your password: ";
+    // Printing the header and border
+    std::cout << std::setw(97) << "==========================================================================\n";
+    std::cout << std::setw(97) << "|                                LOGIN                                   |\n";
+    std::cout << std::setw(97) << "==========================================================================\n";
+    std::cout << std::setw(97) << "|                                                                        |\n";
+    std::cout << std::setw(67) << "                        Enter your username: ";
+    std::cin >> username;
+
+
+    std::cout << std::setw(97) << "|                                                                        |\n";
+    std::cout << std::setw(67) << "                        Enter your password: ";
     std::cin >> password;
-
-    if (!LoginManager::login(userName, password)) {
+    std::cout << std::setw(97) << "|                                                                        |\n";
+    if (!LoginManager::login(username, password)) {
         Sleep(1500);
         loginHandler();
     }
+    std::cout << std::setw(97) << "|                                                                        |\n";
+    std::cout << std::setw(97) << "==========================================================================\n";
+
 }
+
+
+
 
 void MainMenu::registerHandler() {
     system("cls");
@@ -52,7 +71,7 @@ void MainMenu::registerHandler() {
 
 
     std::cout << "\nEnter your username: ";
-    std::cin >> userName;
+    std::cin >> username;
     usernameValidation();
 
     std::cout << "\nEnter your password: ";
@@ -63,7 +82,7 @@ void MainMenu::registerHandler() {
     std::cin >> confirmPassword;
     passwordMatch();
 
-    if (RegisterManager::registerUser(userName, password)) {
+    if (RegisterManager::registerUser(username, password)) {
         std::cout << "User registered successfully!\n";
         MainMenu::loginHandler();
     }

@@ -13,11 +13,14 @@ public:
 	void passwordMatch();
 	void usernameValidation();
 
+	void drawTeamName();
+
 private:
 	int choice;
 
+	
 	std::string email = "";
-	std::string userName = "";
+	std::string username = "";
 	std::string password = "";
 	std::string confirmPassword = "";
 

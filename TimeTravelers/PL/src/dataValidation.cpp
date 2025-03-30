@@ -32,7 +32,7 @@ void MainMenu::passwordMatch() {
 }
 
 void MainMenu::usernameValidation() {
-    for (char ch : userName) {
+    for (char ch : username) {
         if (std::isupper(ch)) hasUpper = true;
     }
 
