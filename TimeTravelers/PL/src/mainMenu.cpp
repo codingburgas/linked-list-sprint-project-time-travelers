@@ -29,11 +29,23 @@ void MainMenu::displayMainMenu() {
 }
 
 void MainMenu::loginHandler() {
-    std::cout << '\n';
+    system("cls");
+    
+    std::cout << "Enter your username: ";
+    std::cin >> userName;
+
+    std::cout << "\nEnter your password: ";
+    std::cin >> password;
+
+    if (!LoginManager::login(userName, password)) {
+        Sleep(1500);
+        loginHandler();
+    }
 }
 
 void MainMenu::registerHandler() {
     system("cls");
+
     std::cout << "Enter your email: ";
     std::cin >> email;
     emailValidation();
@@ -53,6 +65,7 @@ void MainMenu::registerHandler() {
 
     if (RegisterManager::registerUser(userName, password)) {
         std::cout << "User registered successfully!\n";
+        MainMenu::loginHandler();
     }
     else {
         std::cout << "Registration failed!\n";

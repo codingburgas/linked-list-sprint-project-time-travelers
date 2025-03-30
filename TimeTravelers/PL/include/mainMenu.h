@@ -16,10 +16,10 @@ public:
 private:
 	int choice;
 
-	std::string email;
-	std::string userName;
-	std::string password;
-	std::string confirmPassword;
+	std::string email = "";
+	std::string userName = "";
+	std::string password = "";
+	std::string confirmPassword = "";
 
 	bool hasUpper = false;
 	bool hasDigit = false;

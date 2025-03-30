@@ -9,7 +9,7 @@ bool LoginManager::login(const std::string& username, const std::string& passwor
         return 1;
     }
     else {
-        std::cout << "Invalid username or password!" << std::endl;
+        std::cout << "Invalid username or password! Please try again." << std::endl;
         return 0;
     }
 }

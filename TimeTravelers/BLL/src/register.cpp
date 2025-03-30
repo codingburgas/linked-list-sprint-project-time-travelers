@@ -5,7 +5,7 @@ bool RegisterManager::registerUser(const std::string& username, const std::strin
     json users = FileManager::loadJSON("users.json");
 
     if (users.contains(username)) {
-        std::cout << "User already exists!" << std::endl;
+        std::cout << "User already exists! Please try with different information." << std::endl;
         return false;
     }
 

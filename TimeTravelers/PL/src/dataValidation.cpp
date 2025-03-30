@@ -4,7 +4,7 @@ void MainMenu::emailValidation() {
     if (email.find('@') == std::string::npos || email.find('.') == std::string::npos) {
         std::cout << "Enter valid email!\n";
         std::cout << "Please try again!";
-        Sleep(1000);
+        Sleep(1500);
         registerHandler();
     }
 }
@@ -18,7 +18,7 @@ void MainMenu::passwordValidation() {
     }
     if (!hasUpper || !hasDigit || !hasSpecialChar || !passLength) {
         std::cout << "Password must contain at least one uppercase letter, one number, and one special character. Must be at least 8 characters long. Please try again.\n";
-        Sleep(1000);
+        Sleep(1500);
         registerHandler();
     }
 }
@@ -26,7 +26,7 @@ void MainMenu::passwordValidation() {
 void MainMenu::passwordMatch() {
     if (password != confirmPassword) {
         std::cout << "Passwords do not match. Please try again!\n";
-        Sleep(1000);
+        Sleep(1500);
         registerHandler();
     }
 }
@@ -38,7 +38,7 @@ void MainMenu::usernameValidation() {
 
     if (!hasUpper) {
         std::cout << "Username must contain at least one uppercase letter. Please try again.\n";
-        Sleep(1000);
+        Sleep(1500);
         registerHandler();
     }
 }
