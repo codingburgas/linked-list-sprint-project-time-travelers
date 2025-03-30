@@ -28,12 +28,19 @@ void MainMenu::loginHandler() {
 
 void MainMenu::registerHandler() {
     system("cls");
-      std::cout << "Enter your email: ";
-      std::cin >> email;   
-      std::cout << "\nEnter your username: ";
-      std::cin >> userName;
-      std::cout << "\nEnter your password: ";
-      std::cin >> password;
-      std::cout << "\nConfirm password: ";
-      std::cin >> confirmPass;
+    std::cout << "Enter your email: ";
+    std::cin >> email;
+    emailValidation();
+
+    std::cout << "\nEnter your username: ";
+    std::cin >> userName;
+    usernameValidation();
+
+    std::cout << "\nEnter your password: ";
+    std::cin >> password;
+    passwordValidation();
+
+    std::cout << "\nConfirm password: ";
+    std::cin >> confirmPassword;
+    passwordMatch();
 }
