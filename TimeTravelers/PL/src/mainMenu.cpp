@@ -1,11 +1,14 @@
 #include "mainMenu.h"
 
+
 void MainMenu::displayMainMenu() {
-    std::cout << "  TTTTT  III  M   M  EEEEE      TTTTT  RRRR   AAAAA  V   V  EEEEE  L      EEEEE  RRRR   SSS  " << std::endl;
-    std::cout << "    T     I   MM MM  E           T    R   R  A   A  V   V  E      L      E      R   R  S    " << std::endl;
-    std::cout << "    T     I   M M M  EEEE        T    RRRR   AAAAA  V   V  EEEE   L      EEEE   RRRR    SSS " << std::endl;
-    std::cout << "    T     I   M   M  E           T    R  R   A   A   V V   E      L      E      R  R       S" << std::endl;
-    std::cout << "    T    III  M   M  EEEEE        T    R   R  A   A    V    EEEEE  LLLLL  EEEEE  R   R  SSS  " << std::endl;
+    std::cout << " _____ _                  _____                    _ _               " << std::endl;
+    std::cout << "|_   _(_)_ __ ___   ___  |_   _| __ __ ___   _____| | | ___ _ __ ___ " << std::endl;
+    std::cout << "  | | | | '_ ` _ \\ / _ \\   | || '__/ _` \\ \\ / / _ \\ | |/ _ \\ '__/ __|" << std::endl;
+    std::cout << "  | | | | | | | | |  __/   | || | | (_| |\\ V /  __/ | |  __/ |  \\__ \\" << std::endl;
+    std::cout << "  |_| |_|_| |_| |_|\\___|   |_||_|  \\__,_| \\_/ \\___|_|_|\\___|_|  |___/" << std::endl;
+
+    
 
     std::cout << "1. Login\n";
     std::cout << "2. Register\n";
@@ -15,10 +18,10 @@ void MainMenu::displayMainMenu() {
     std::cin >> choice;
 
     switch (choice) {
-    case 1: std::cout << " " << std::endl;
-    case 2: MainMenu::registerHandler();
+    case 1: MainMenu::loginHandler(); break;
+    case 2: MainMenu::registerHandler(); break;
     case 3: break;
-    default: std::cout << "Invalid input!\n"; return;
+    default: std::cout << "Invalid input. Please try again!\n"; return;
     }
 }
 
@@ -32,6 +35,7 @@ void MainMenu::registerHandler() {
     std::cin >> email;
     emailValidation();
 
+
     std::cout << "\nEnter your username: ";
     std::cin >> userName;
     usernameValidation();
@@ -43,4 +47,11 @@ void MainMenu::registerHandler() {
     std::cout << "\nConfirm password: ";
     std::cin >> confirmPassword;
     passwordMatch();
+
+    if (RegisterManager::registerUser(userName, password)) {
+        std::cout << "User registered successfully!\n";
+    }
+    else {
+        std::cout << "Registration failed!\n";
+    }
 }

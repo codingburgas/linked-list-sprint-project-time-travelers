@@ -15,9 +15,9 @@ project "PL"
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-    files { "./TimeTravelers/PL/src/**.cpp", "./TimeTravelers/PL/include/**.h", "TimeTravelers/PL/assets/**.png" }
+    files { "./TimeTravelers/PL/src/**.cpp", "./TimeTravelers/PL/include/**.h", "TimeTravelers/PL/assets/**.png", "TimeTravelers/data/**.json" }
     
-    includedirs { "./TimeTravelers/PL/include", "./TimeTravelers/BLL/include", "./TimeTravelers/DAL/include", "./vendor/json/include" }
+    includedirs { "./TimeTravelers/PL/include", "./TimeTravelers/BLL/include", "./TimeTravelers/DAL/include" }
 
     libdirs { "bin/" .. outputdir .. "/BLL", "bin/" .. outputdir .. "/DAL" }
     
@@ -44,7 +44,7 @@ project "BLL"
     targetdir ("bin/" .. outputdir .. "/TimeTravelers/BLL")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-    files { "./TimeTravelers/BLL/src/**.cpp", "./TimeTravelers/BLL/include/**.h" }
+    files { "./TimeTravelers/BLL/src/**.cpp", "./TimeTravelers/BLL/include/**.h", "TimeTravelers/data/**.json" }
 
     includedirs { "./TimeTravelers/BLL/include", "./vendor/json/include" }
 
@@ -69,7 +69,7 @@ project "DAL"
     targetdir ("bin/" .. outputdir .. "/TimeTravelers/DAL")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-    files { "./TimeTravelers/DAL/src/**.cpp", "./TimeTravelers/DAL/include/**.h" }
+    files { "./TimeTravelers/DAL/src/**.cpp", "./TimeTravelers/DAL/include/**.h", "TimeTravelers/data/**.json" }
     includedirs { "./TimeTravelers/DAL/include", "./vendor/json/include" }
 
     staticruntime "On"

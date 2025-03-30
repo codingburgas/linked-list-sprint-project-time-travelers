@@ -16,10 +16,5 @@ void App::pageHandler() {
 void App::display() {
 	if (pages.isInMainMenu) {
 		mainMenu.displayMainMenu();
-		mainMenu.registerHandler();
-		mainMenu.emailValidation();
-		mainMenu.usernameValidation();
-		mainMenu.passwordValidation();
-		mainMenu.passwordMatch();
 	}
 }

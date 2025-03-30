@@ -1,5 +1,7 @@
 #pragma once
 #include "precompile.h"
+#include "../../BLL/include/register.h"
+#include "../../BLL/include/login.h"
 
 class MainMenu {
 public:
