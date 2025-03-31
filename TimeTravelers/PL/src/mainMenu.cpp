@@ -16,9 +16,15 @@ void MainMenu::displayMainMenu() {
     std::cin >> choice;
 
     switch (choice) {
-    case 1: MainMenu::loginHandler(); break;
-    case 2: MainMenu::registerHandler(); break;
-    case 3: break;
+    case 1:
+        MainMenu::loginHandler();
+        break;
+    case 2:
+        MainMenu::registerHandler();
+        break;
+    case 3:
+
+        break;
     default:
         std::cout << "Invalid input. Please try again!\n";
         return;
@@ -28,9 +34,9 @@ void MainMenu::displayMainMenu() {
 void MainMenu::drawTeamName() {
     std::cout << std::setw(94) << "       _____ _                  _____                    _ _               \n";
     std::cout << std::setw(94) << "      |_   _(_)_ __ ___   ___  |_   _| __ __ ___   _____| | | ___ _ __ ___ \n";
-    std::cout << std::setw(94) << "        | | | | '_ ` _ \\ / _ \\   | || '__/ _` \\ \\ / / _ \\ | |/ _ \\ '__/ __|\n";
+    std::cout << std::setw(94) << "        | | | | '_  _ \\ / _ \\   | || '__/ _ \\ \\ / / _ \\ | |/ _ \\ '__/ __|\n";
     std::cout << std::setw(94) << "        | | | | | | | | |  __/   | || | | (_| |\\ V /  __/ | |  __/ |  \\__ \\\n";
-    std::cout << std::setw(94) << "        |_| |_|_| |_| |_|\\___|   |_||_|  \\\__,_| \\_/ \\___|_|_|\\___|_|  |___/\n";
+    std::cout << std::setw(94) << "        |_| |_|_| |_| |_|\\___|   |_||_|  \\__,_| \\_/ \\___|_|_|\\___|_|  |___/\n";
     std::cout << '\n';
 }
 
@@ -46,22 +52,24 @@ void MainMenu::loginHandler() {
     std::cout << std::setw(67) << "                        Enter your username: ";
     std::cin >> username;
 
-
     std::cout << std::setw(97) << "|                                                                        |\n";
     std::cout << std::setw(67) << "                        Enter your password: ";
     std::cin >> password;
     std::cout << std::setw(97) << "|                                                                        |\n";
+
     if (!LoginManager::login(username, password)) {
         Sleep(1500);
         loginHandler();
     }
+    else {
+        std::cout << std::setw(97) << "Login successful!\n";
+        Sleep(1500);
+        displayUserMenu();
+    }
+
     std::cout << std::setw(97) << "|                                                                        |\n";
     std::cout << std::setw(97) << "==========================================================================\n";
-
 }
-
-
-
 
 void MainMenu::registerHandler() {
     system("cls");
@@ -88,7 +96,7 @@ void MainMenu::registerHandler() {
     std::cout << std::setw(56) << "                    Enter your pasword: ";
     std::cin >> password;
     passwordValidation();
-    
+
     std::cout << std::setw(97) << "|                                                                        |\n";
     std::cout << std::setw(97) << "|                                                                        |\n";
     std::cout << std::setw(56) << "                    Confirm Password: ";
@@ -99,7 +107,6 @@ void MainMenu::registerHandler() {
     std::cout << std::setw(97) << "|                                                                        |\n";
     std::cout << std::setw(97) << "==========================================================================\n";
 
-
     if (RegisterManager::registerUser(username, password)) {
         std::cout << "User registered successfully!\n";
         Sleep(1500);
@@ -108,4 +115,66 @@ void MainMenu::registerHandler() {
     else {
         std::cout << "Registration failed!\n";
     }
+}
+
+void MainMenu::displayUserMenu() {
+    system("cls");
+    drawTeamName();
+
+    std::cout << std::setw(97) << "==========================================================================\n";
+    std::cout << std::setw(97) << "|                                MAIN MENU                               |\n";
+    std::cout << std::setw(97) << "==========================================================================\n";
+    std::cout << std::setw(97) << "|                                                                        |\n";
+    std::cout << std::setw(97) << "|                           1. Create Event                              |\n";
+    std::cout << std::setw(97) << "|                           2. Browse Events                             |\n";
+    std::cout << std::setw(97) << "|                           3. Logout                                    |\n";
+    std::cout << std::setw(97) << "|                                                                        |\n";
+    std::cout << std::setw(97) << "==========================================================================\n";
+    std::cout << std::setw(60) << "Enter your choice: ";
+
+    std::cin >> choice;
+
+    switch (choice) {
+    case 1:
+        createEventHandler();
+        break;
+    case 2:
+        browseEventsHandler();
+        break;
+    case 3:
+        system("cls");
+        displayMainMenu();
+        break;
+    default:
+        std::cout << "Invalid input. Please try again!\n";
+        Sleep(1500);
+        displayUserMenu();
+        break;
+    }
+}
+
+void MainMenu::createEventHandler() {
+    system("cls");
+    drawTeamName();
+    std::cout << std::setw(97) << "==========================================================================\n";
+    std::cout << std::setw(97) << "|                             CREATE EVENT                               |\n";
+    std::cout << std::setw(97) << "==========================================================================\n";
+
+    std::cout << "Create Event functionality goes here.\n";
+
+    system("pause");
+    displayUserMenu();
+}
+
+void MainMenu::browseEventsHandler() {
+    system("cls");
+    drawTeamName();
+    std::cout << std::setw(97) << "==========================================================================\n";
+    std::cout << std::setw(97) << "|                            BROWSE EVENTS                               |\n";
+    std::cout << std::setw(97) << "==========================================================================\n";
+
+    std::cout << "Browse Events functionality goes here.\n";
+
+    system("pause");
+    displayUserMenu();
 }
