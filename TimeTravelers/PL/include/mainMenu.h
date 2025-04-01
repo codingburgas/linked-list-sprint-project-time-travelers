@@ -5,7 +5,7 @@
 
 class MainMenu {
 public:
-    //Predi login
+    //Login and registration
     void displayMainMenu();
     void loginHandler();
     void registerHandler();
@@ -17,8 +17,10 @@ public:
     void usernameValidation();
 
     void drawTeamName();
+    void drawRegister();
+    void drawLogin();
 
-    //Sled log in
+    //After login and registration
     void displayUserMenu();
     void createEventHandler();
     void browseEventsHandler();

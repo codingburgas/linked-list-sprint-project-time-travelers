@@ -5,7 +5,7 @@ bool LoginManager::login(const std::string& username, const std::string& passwor
     json users = FileManager::loadJSON("users.json");
 
     if (users.contains(username) && users[username]["password"] == password) {
-        std::cout << std::setw(68) << "Login successful!" << std::endl;
+        std::cout << std::setw(97) << "Login successful!" << std::endl;
         return 1;
     }
     else {
