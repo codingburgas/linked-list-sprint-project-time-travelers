@@ -4,12 +4,14 @@
 #include "../../BLL/include/login.h"
 #include "../../BLL/include/eventManager.h"
 #include "../../DAL/include/eventDisplay.h"
+#include "../../DAL/include/timelineDisplay.h"
 
 class MainMenu {
 public:
     void displayMainMenu();
     void loginHandler();
     void registerHandler();
+    void timelineHandler();
 
     //Validation
     void emailValidation();

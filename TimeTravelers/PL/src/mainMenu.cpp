@@ -1,5 +1,14 @@
 #include "mainMenu.h"
 
+static void clearScreen() {
+#ifdef _WIN64
+    system("cls");
+#elif __APPLE__
+    system("clear");
+#endif
+}
+
+
 void MainMenu::displayMainMenu() {
     drawTeamName();
     std::cout << std::setw(97) << "==========================================================================\n";
@@ -16,15 +25,9 @@ void MainMenu::displayMainMenu() {
     std::cin >> choice;
 
     switch (choice) {
-    case 1:
-        MainMenu::loginHandler();
-        break;
-    case 2:
-        MainMenu::registerHandler();
-        break;
-    case 3:
-
-        break;
+    case 1: loginHandler(); break;
+    case 2: registerHandler(); break;
+    case 3: break;
     default:
         std::cout << "Invalid input. Please try again!\n";
         return;
@@ -41,11 +44,7 @@ void MainMenu::drawTeamName() {
 }
 
 void MainMenu::loginHandler() {
-#ifdef _WIN64
-    system("cls");
-#elif __APPLE__
-    system("clear");
-#endif
+    clearScreen();
     std::cout << '\n';
     drawTeamName();
 
@@ -75,13 +74,8 @@ void MainMenu::loginHandler() {
 }
 
 void MainMenu::drawRegister() {
-#ifdef _WIN64
-    system("cls");
-#elif __APPLE__
-    system("clear");
-#endif
+    clearScreen();
     std::cout << '\n';
-
     drawTeamName();
 
     std::cout << std::setw(97) << "==========================================================================\n";
@@ -109,7 +103,7 @@ void MainMenu::registerHandler() {
     if (RegisterManager::registerUser(username, password)) {
         std::cout << "User registered successfully!\n";
         sleepMs(1500);
-        MainMenu::loginHandler();
+        loginHandler();
     }
     else {
         std::cout << "Registration failed!\n";
@@ -117,11 +111,7 @@ void MainMenu::registerHandler() {
 }
 
 void MainMenu::displayUserMenu() {
-#ifdef _WIN64
-    system("cls");
-#elif __APPLE__
-    system("clear");
-#endif
+    clearScreen();
     drawTeamName();
 
     std::cout << std::setw(97) << "==========================================================================\n";
@@ -130,7 +120,8 @@ void MainMenu::displayUserMenu() {
     std::cout << std::setw(97) << "|                                                                        |\n";
     std::cout << std::setw(97) << "|                           1. Create Event                              |\n";
     std::cout << std::setw(97) << "|                           2. Browse Events                             |\n";
-    std::cout << std::setw(97) << "|                           3. Logout                                    |\n";
+    std::cout << std::setw(97) << "|                           3. Timeline                                  |\n";
+    std::cout << std::setw(97) << "|                           4. Logout                                    |\n";
     std::cout << std::setw(97) << "|                                                                        |\n";
     std::cout << std::setw(97) << "==========================================================================\n";
     std::cout << std::setw(60) << "Enter your choice: ";
@@ -145,11 +136,10 @@ void MainMenu::displayUserMenu() {
         browseEventsHandler();
         break;
     case 3:
-#ifdef _WIN64
-        system("cls");
-#elif __APPLE__
-            system("clear");
-#endif
+        timelineHandler();
+        break;
+    case 4:
+        clearScreen();
         displayMainMenu();
         break;
     default:
@@ -161,11 +151,7 @@ void MainMenu::displayUserMenu() {
 }
 
 void MainMenu::createEventHandler() {
-#ifdef _WIN64
-    system("cls");
-#elif __APPLE__
-    system("clear");
-#endif
+    clearScreen();
     drawTeamName();
     std::cout << std::setw(97) << "==========================================================================\n";
     std::cout << std::setw(97) << "|                             CREATE EVENT                               |\n";
@@ -178,11 +164,7 @@ void MainMenu::createEventHandler() {
 }
 
 void MainMenu::browseEventsHandler() {
-#ifdef _WIN64
-    system("cls");
-#elif __APPLE__
-    system("clear");
-#endif
+    clearScreen();
     drawTeamName();
 
     std::cout << std::setw(97) << "==========================================================================\n";
@@ -203,5 +185,20 @@ void MainMenu::browseEventsHandler() {
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 
+    displayUserMenu();
+}
+
+void MainMenu::timelineHandler() {
+    clearScreen();
+    drawTeamName();
+    std::cout << std::setw(97) << "==========================================================================\n";
+    std::cout << std::setw(97) << "|                                TIMELINE                                |\n";
+    std::cout << std::setw(97) << "==========================================================================\n";
+
+    TimelineDisplay::displayTimeline();
+
+    std::cout << "Press Enter to return to menu...";
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.get();
     displayUserMenu();
 }
