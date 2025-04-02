@@ -2,13 +2,16 @@
 #include "precompile.h"
 #include "../../BLL/include/register.h"
 #include "../../BLL/include/login.h"
+#include "../../BLL/include/eventManager.h"
+#include "../../DAL/include/eventDisplay.h"
+#include "../../DAL/include/timelineDisplay.h"
 
 class MainMenu {
 public:
-    //Predi login
     void displayMainMenu();
     void loginHandler();
     void registerHandler();
+    void timelineHandler();
 
     //Validation
     void emailValidation();
@@ -17,8 +20,9 @@ public:
     void usernameValidation();
 
     void drawTeamName();
+    void drawRegister();
+    void drawLogin();
 
-    //Sled log in
     void displayUserMenu();
     void createEventHandler();
     void browseEventsHandler();

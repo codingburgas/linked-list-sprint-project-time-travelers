@@ -1,5 +1,14 @@
 #include "mainMenu.h"
 
+static void clearScreen() {
+#ifdef _WIN64
+    system("cls");
+#elif __APPLE__
+    system("clear");
+#endif
+}
+
+
 void MainMenu::displayMainMenu() {
     drawTeamName();
     std::cout << std::setw(97) << "==========================================================================\n";
@@ -16,15 +25,9 @@ void MainMenu::displayMainMenu() {
     std::cin >> choice;
 
     switch (choice) {
-    case 1:
-        MainMenu::loginHandler();
-        break;
-    case 2:
-        MainMenu::registerHandler();
-        break;
-    case 3:
-
-        break;
+    case 1: loginHandler(); break;
+    case 2: registerHandler(); break;
+    case 3: break;
     default:
         std::cout << "Invalid input. Please try again!\n";
         return;
@@ -34,14 +37,14 @@ void MainMenu::displayMainMenu() {
 void MainMenu::drawTeamName() {
     std::cout << std::setw(94) << "       _____ _                  _____                    _ _               \n";
     std::cout << std::setw(94) << "      |_   _(_)_ __ ___   ___  |_   _| __ __ ___   _____| | | ___ _ __ ___ \n";
-    std::cout << std::setw(94) << "        | | | | '_  _ \\ / _ \\   | || '__/ _ \\ \\ / / _ \\ | |/ _ \\ '__/ __|\n";
+    std::cout << std::setw(94) << "        | | | | '_ ` _ \\ / _ \\   | || '__/ _` \\ \\ / / _ \\ | |/ _ \\ '__/ __|\n";
     std::cout << std::setw(94) << "        | | | | | | | | |  __/   | || | | (_| |\\ V /  __/ | |  __/ |  \\__ \\\n";
     std::cout << std::setw(94) << "        |_| |_|_| |_| |_|\\___|   |_||_|  \\__,_| \\_/ \\___|_|_|\\___|_|  |___/\n";
     std::cout << '\n';
 }
 
 void MainMenu::loginHandler() {
-    system("cls");
+    clearScreen();
     std::cout << '\n';
     drawTeamName();
 
@@ -58,12 +61,11 @@ void MainMenu::loginHandler() {
     std::cout << std::setw(97) << "|                                                                        |\n";
 
     if (!LoginManager::login(username, password)) {
-        Sleep(1500);
+        sleepMs(1500);
         loginHandler();
     }
     else {
-        std::cout << std::setw(97) << "Login successful!\n";
-        Sleep(1500);
+        sleepMs(1500);
         displayUserMenu();
     }
 
@@ -71,46 +73,37 @@ void MainMenu::loginHandler() {
     std::cout << std::setw(97) << "==========================================================================\n";
 }
 
-void MainMenu::registerHandler() {
-    system("cls");
+void MainMenu::drawRegister() {
+    clearScreen();
     std::cout << '\n';
-
     drawTeamName();
 
     std::cout << std::setw(97) << "==========================================================================\n";
     std::cout << std::setw(97) << "|                                REGISTER                                |\n";
     std::cout << std::setw(97) << "==========================================================================\n";
     std::cout << std::setw(97) << "|                                                                        |\n";
-    std::cout << std::setw(56) << "                    Enter your email: ";
-    std::cin >> email;
-    std::cout << std::setw(97) << "|                                                                        |\n";
     emailValidation();
 
-    std::cout << std::setw(97) << "|                                                                        |\n";
-    std::cout << std::setw(59) << "                    Enter your username: ";
-    std::cin >> username;
     std::cout << std::setw(97) << "|                                                                        |\n";
     usernameValidation();
 
     std::cout << std::setw(97) << "|                                                                        |\n";
-    std::cout << std::setw(56) << "                    Enter your pasword: ";
-    std::cin >> password;
     passwordValidation();
 
     std::cout << std::setw(97) << "|                                                                        |\n";
-    std::cout << std::setw(97) << "|                                                                        |\n";
-    std::cout << std::setw(56) << "                    Confirm Password: ";
-    std::cin >> confirmPassword;
     passwordMatch();
 
     std::cout << std::setw(97) << "|                                                                        |\n";
-    std::cout << std::setw(97) << "|                                                                        |\n";
     std::cout << std::setw(97) << "==========================================================================\n";
+}
+
+void MainMenu::registerHandler() {
+    drawRegister();
 
     if (RegisterManager::registerUser(username, password)) {
         std::cout << "User registered successfully!\n";
-        Sleep(1500);
-        MainMenu::loginHandler();
+        sleepMs(1500);
+        loginHandler();
     }
     else {
         std::cout << "Registration failed!\n";
@@ -118,7 +111,7 @@ void MainMenu::registerHandler() {
 }
 
 void MainMenu::displayUserMenu() {
-    system("cls");
+    clearScreen();
     drawTeamName();
 
     std::cout << std::setw(97) << "==========================================================================\n";
@@ -127,7 +120,8 @@ void MainMenu::displayUserMenu() {
     std::cout << std::setw(97) << "|                                                                        |\n";
     std::cout << std::setw(97) << "|                           1. Create Event                              |\n";
     std::cout << std::setw(97) << "|                           2. Browse Events                             |\n";
-    std::cout << std::setw(97) << "|                           3. Logout                                    |\n";
+    std::cout << std::setw(97) << "|                           3. Timeline                                  |\n";
+    std::cout << std::setw(97) << "|                           4. Logout                                    |\n";
     std::cout << std::setw(97) << "|                                                                        |\n";
     std::cout << std::setw(97) << "==========================================================================\n";
     std::cout << std::setw(60) << "Enter your choice: ";
@@ -142,39 +136,69 @@ void MainMenu::displayUserMenu() {
         browseEventsHandler();
         break;
     case 3:
-        system("cls");
+        timelineHandler();
+        break;
+    case 4:
+        clearScreen();
         displayMainMenu();
         break;
     default:
         std::cout << "Invalid input. Please try again!\n";
-        Sleep(1500);
+        sleepMs(1500);
         displayUserMenu();
         break;
     }
 }
 
 void MainMenu::createEventHandler() {
-    system("cls");
+    clearScreen();
     drawTeamName();
     std::cout << std::setw(97) << "==========================================================================\n";
     std::cout << std::setw(97) << "|                             CREATE EVENT                               |\n";
     std::cout << std::setw(97) << "==========================================================================\n";
 
-    std::cout << "Create Event functionality goes here.\n";
+    EventManager::createEvent();
 
     system("pause");
     displayUserMenu();
 }
 
 void MainMenu::browseEventsHandler() {
-    system("cls");
+    clearScreen();
     drawTeamName();
+
     std::cout << std::setw(97) << "==========================================================================\n";
     std::cout << std::setw(97) << "|                            BROWSE EVENTS                               |\n";
     std::cout << std::setw(97) << "==========================================================================\n";
 
-    std::cout << "Browse Events functionality goes here.\n";
+    EventDisplay::displayEvents();
 
-    system("pause");
+    std::cout << "Enter the title of the event you want more details on (or press Enter to skip): ";
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::string selectedTitle;
+    std::getline(std::cin, selectedTitle);
+
+    if (!selectedTitle.empty()) {
+        EventDisplay::showEventDetailsByTitle(selectedTitle);
+
+        std::cout << "Press Enter to continue...";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+
+    displayUserMenu();
+}
+
+void MainMenu::timelineHandler() {
+    clearScreen();
+    drawTeamName();
+    std::cout << std::setw(97) << "==========================================================================\n";
+    std::cout << std::setw(97) << "|                                TIMELINE                                |\n";
+    std::cout << std::setw(97) << "==========================================================================\n";
+
+    TimelineDisplay::displayTimeline();
+
+    std::cout << "Press Enter to return to menu...";
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.get();
     displayUserMenu();
 }
