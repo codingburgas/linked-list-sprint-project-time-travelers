@@ -8,7 +8,7 @@ void MainMenu::emailValidation() {
         if (email.find('@') == std::string::npos || email.find('.') == std::string::npos) {
             std::cout << std::setw(97) << "|                                                                        |\n";
             std::cout << std::setw(80) << "\033[31mEnter valid email! Please try again.\n";
-            Sleep(1500);
+            sleepMs(1500);
             std::cout << std::setw(101) << "\033[0m|                                                                        |\n";
         }        
     }
@@ -35,7 +35,7 @@ void MainMenu::passwordValidation() {
               std::cout << std::setw(120)
               << "\033[31mPassword must contain at least one uppercase letter, one number, and one special character. "
               << "Must be at least 8 characters long. Please try again.\n";
-              Sleep(1500);
+              sleepMs(1500);
               std::cout << std::setw(101) << "\033[0m|                                                                        |\n";
         }
     }
@@ -49,7 +49,7 @@ void MainMenu::passwordMatch() {
         if (password != confirmPassword) {
             std::cout << std::setw(97) << "|                                                                        |\n";
             std::cout << std::setw(80) << "\033[31mPasswords do not match. Please try again!\n";
-            Sleep(1500);
+            sleepMs(1500);
             std::cout << std::setw(101) << "\033[0m|                                                                        |\n";
         }
     }
@@ -67,7 +67,7 @@ void MainMenu::usernameValidation() {
         if (!hasUpper) {
             std::cout << std::setw(97) << "|                                                                        |\n";
             std::cout << std::setw(90) << "\033[31mUsername must contain at least one uppercase letter. Please try again.\n";
-            Sleep(1500);
+            sleepMs(1500);
             std::cout << std::setw(101) << "\033[0m|                                                                        |\n";
         }
     }

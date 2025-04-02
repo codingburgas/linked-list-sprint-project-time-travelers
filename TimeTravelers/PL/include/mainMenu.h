@@ -2,10 +2,10 @@
 #include "precompile.h"
 #include "../../BLL/include/register.h"
 #include "../../BLL/include/login.h"
+#include "../../BLL/include/eventManager.h"
 
 class MainMenu {
 public:
-    //Login and registration
     void displayMainMenu();
     void loginHandler();
     void registerHandler();
@@ -20,7 +20,6 @@ public:
     void drawRegister();
     void drawLogin();
 
-    //After login and registration
     void displayUserMenu();
     void createEventHandler();
     void browseEventsHandler();

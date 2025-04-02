@@ -36,12 +36,16 @@ void MainMenu::drawTeamName() {
     std::cout << std::setw(94) << "      |_   _(_)_ __ ___   ___  |_   _| __ __ ___   _____| | | ___ _ __ ___ \n";
     std::cout << std::setw(94) << "        | | | | '_ ` _ \\ / _ \\   | || '__/ _` \\ \\ / / _ \\ | |/ _ \\ '__/ __|\n";
     std::cout << std::setw(94) << "        | | | | | | | | |  __/   | || | | (_| |\\ V /  __/ | |  __/ |  \\__ \\\n";
-    std::cout << std::setw(94) << "        |_| |_|_| |_| |_|\\___|   |_||_|  \\\__,_| \\_/ \\___|_|_|\\___|_|  |___/\n";
+    std::cout << std::setw(94) << "        |_| |_|_| |_| |_|\\___|   |_||_|  \\__,_| \\_/ \\___|_|_|\\___|_|  |___/\n";
     std::cout << '\n';
 }
 
 void MainMenu::loginHandler() {
+#ifdef _WIN64
     system("cls");
+#elif __APPLE__
+    system("clear");
+#endif
     std::cout << '\n';
     drawTeamName();
 
@@ -58,11 +62,11 @@ void MainMenu::loginHandler() {
     std::cout << std::setw(97) << "|                                                                        |\n";
 
     if (!LoginManager::login(username, password)) {
-        Sleep(1500);
+        sleepMs(1500);
         loginHandler();
     }
     else {
-        Sleep(1500);
+        sleepMs(1500);
         displayUserMenu();
     }
 
@@ -71,7 +75,11 @@ void MainMenu::loginHandler() {
 }
 
 void MainMenu::drawRegister() {
+#ifdef _WIN64
     system("cls");
+#elif __APPLE__
+    system("clear");
+#endif
     std::cout << '\n';
 
     drawTeamName();
@@ -100,7 +108,7 @@ void MainMenu::registerHandler() {
 
     if (RegisterManager::registerUser(username, password)) {
         std::cout << "User registered successfully!\n";
-        Sleep(1500);
+        sleepMs(1500);
         MainMenu::loginHandler();
     }
     else {
@@ -109,7 +117,11 @@ void MainMenu::registerHandler() {
 }
 
 void MainMenu::displayUserMenu() {
+#ifdef _WIN64
     system("cls");
+#elif __APPLE__
+    system("clear");
+#endif
     drawTeamName();
 
     std::cout << std::setw(97) << "==========================================================================\n";
@@ -133,32 +145,44 @@ void MainMenu::displayUserMenu() {
         browseEventsHandler();
         break;
     case 3:
+#ifdef _WIN64
         system("cls");
+#elif __APPLE__
+            system("clear");
+#endif
         displayMainMenu();
         break;
     default:
         std::cout << "Invalid input. Please try again!\n";
-        Sleep(1500);
+        sleepMs(1500);
         displayUserMenu();
         break;
     }
 }
 
 void MainMenu::createEventHandler() {
+#ifdef _WIN64
     system("cls");
+#elif __APPLE__
+    system("clear");
+#endif
     drawTeamName();
     std::cout << std::setw(97) << "==========================================================================\n";
     std::cout << std::setw(97) << "|                             CREATE EVENT                               |\n";
     std::cout << std::setw(97) << "==========================================================================\n";
 
-    std::cout << "Create Event functionality goes here.\n";
+    EventManager::createEvent();
 
     system("pause");
     displayUserMenu();
 }
 
 void MainMenu::browseEventsHandler() {
+#ifdef _WIN64
     system("cls");
+#elif __APPLE__
+    system("clear");
+#endif
     drawTeamName();
     std::cout << std::setw(97) << "==========================================================================\n";
     std::cout << std::setw(97) << "|                            BROWSE EVENTS                               |\n";
