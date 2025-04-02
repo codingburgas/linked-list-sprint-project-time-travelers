@@ -1,10 +1,13 @@
 #include "eventDisplay.h"
 #include "files.h"
 #include "json.hpp"
+#include "userLogs.h"
+#include "globals.h"
 #include <iostream>
 #include <fstream>
 #include <algorithm>
 #include <vector>
+#include <string>
 
 using json = nlohmann::json;
 
@@ -53,7 +56,6 @@ namespace EventDisplay {
         }
     }
 
-
     void showEventDetailsByTitle(const std::string& title) {
         json data = FileManager::loadJSON("events.json");
         if (!data.is_array()) {
@@ -67,7 +69,6 @@ namespace EventDisplay {
             if (eventTitle == title) {
                 found = true;
 
-
                 int year = event.value("year", 0);
                 std::string yearStr = (year == 0) ? "Unknown" : std::to_string(year);
 
@@ -75,7 +76,6 @@ namespace EventDisplay {
                 std::string description = event.value("description", "<Unknown>");
                 std::string prerequisite = event.value("prerequisite", "<Unknown>");
                 std::string consequence = event.value("consequence", "<Unknown>");
-
 
                 std::cout << "\n===== Event Details =====\n";
                 std::cout << "Title:         " << eventTitle << std::endl;
@@ -85,6 +85,12 @@ namespace EventDisplay {
                 std::cout << "Prerequisite:  " << prerequisite << std::endl;
                 std::cout << "Consequence:   " << consequence << std::endl;
                 std::cout << "=========================\n\n";
+
+                std::string unlockedArtifact = UserLogs::updateUserProgress(currentUsername, year);
+                if (!unlockedArtifact.empty()) {
+                    std::cout << "Achievement Unlocked: " << unlockedArtifact << "!" << std::endl;
+                    UserLogs::saveUserProgress();
+                }
                 break;
             }
         }

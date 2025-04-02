@@ -1,8 +1,19 @@
-//
-// Created by Ani Vezirova on 2.04.25.
-//
+#include "json.hpp"
+#include <string>
 
-#ifndef USERLOGS_H
-#define USERLOGS_H
+class UserLogs {
+public:
+    static bool loadUserProgress(const std::string& username);
 
-#endif //USERLOGS_H
+    static std::string updateUserProgress(const std::string& username, int eventYear);
+
+    static bool saveUserProgress();
+
+private:
+    static std::string determineEra(int year);
+
+    static std::string getArtifactForEra(const std::string& era);
+
+    static nlohmann::json logsData;
+};
+
