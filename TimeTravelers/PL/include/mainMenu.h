@@ -3,6 +3,7 @@
 #include "../../BLL/include/register.h"
 #include "../../BLL/include/login.h"
 #include "../../BLL/include/eventManager.h"
+#include "../../DAL/include/eventDisplay.h"
 
 class MainMenu {
 public:

@@ -184,12 +184,24 @@ void MainMenu::browseEventsHandler() {
     system("clear");
 #endif
     drawTeamName();
+
     std::cout << std::setw(97) << "==========================================================================\n";
     std::cout << std::setw(97) << "|                            BROWSE EVENTS                               |\n";
     std::cout << std::setw(97) << "==========================================================================\n";
 
-    std::cout << "Browse Events functionality goes here.\n";
+    EventDisplay::displayEvents();
 
-    system("pause");
+    std::cout << "Enter the title of the event you want more details on (or press Enter to skip): ";
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::string selectedTitle;
+    std::getline(std::cin, selectedTitle);
+
+    if (!selectedTitle.empty()) {
+        EventDisplay::showEventDetailsByTitle(selectedTitle);
+
+        std::cout << "Press Enter to continue...";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+
     displayUserMenu();
 }

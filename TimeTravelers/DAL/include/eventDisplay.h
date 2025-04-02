@@ -1,8 +1,9 @@
-//
-// Created by Ani Vezirova on 2.04.25.
-//
+#pragma once
 
-#ifndef EVENTDISPLAY_H
-#define EVENTDISPLAY_H
+#include <string>
 
-#endif //EVENTDISPLAY_H
+namespace EventDisplay {
+    void displayEvents();
+
+    void showEventDetailsByTitle(const std::string& title);
+}
