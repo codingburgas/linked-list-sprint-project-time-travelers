@@ -8,6 +8,7 @@ struct Event {
     std::string country;
     std::string prerequisite;
     std::string consequence;
+    std::string author;
 };
 
 class EventManager {

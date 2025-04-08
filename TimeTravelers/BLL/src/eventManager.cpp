@@ -1,5 +1,6 @@
 #include "eventManager.h"
 #include "../../DAL/include/eventRepository.h"
+#include "../../DAL/include/globals.h"
 
 #include <iostream>
 #include <limits>
@@ -27,6 +28,8 @@ void EventManager::createEvent() {
 
     std::cout << "Enter Consequence: ";
     std::getline(std::cin, newEvent.consequence);
+
+    newEvent.author = currentUsername;
 
     EventRepository::saveEvent(newEvent);
 
