@@ -171,10 +171,69 @@ void MainMenu::browseEventsHandler() {
     std::cout << std::setw(97) << "|                            BROWSE EVENTS                               |\n";
     std::cout << std::setw(97) << "==========================================================================\n";
 
-    EventDisplay::displayEvents();
+    int filterChoice = 0;
+    std::cout << "How do you want to view events?\n";
+    std::cout << "1. View all events\n";
+    std::cout << "2. Filter by country\n";
+    std::cout << "3. Filter by year range\n";
+    std::cout << "4. Filter by era\n";
+    std::cout << "Enter your choice (1-4): ";
+    std::cin >> filterChoice;
+
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    switch (filterChoice) {
+    case 1: {
+        std::cout << std::endl;
+        std::cout << std::endl;
+        EventDisplay::displayEvents();
+        break;
+    }
+    case 2: {
+        std::cout << std::endl;
+        std::cout << std::endl;
+        std::cout << "Enter the country name: ";
+        std::string country;
+        std::getline(std::cin, country);
+        EventDisplay::displayEventsByCountry(country);
+        break;
+    }
+    case 3: {
+        std::cout << std::endl;
+        std::cout << std::endl;
+        int startYear, endYear;
+        std::cout << "Enter start year: ";
+        std::cin >> startYear;
+        std::cout << "Enter end year: ";
+        std::cin >> endYear;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        EventDisplay::displayEventsByYearRange(startYear, endYear);
+        break;
+    }
+    case 4: {
+        std::cout << std::endl;
+        std::cout << std::endl;
+        std::cout << "Available eras:\n"
+            << "  Ancient (<500)\n"
+            << "  Classical (500-999)\n"
+            << "  Medieval (1000-1499)\n"
+            << "  Renaissance (1500-1699)\n"
+            << "  Industrial (1700-1899)\n"
+            << "  Modern (1900-1999)\n"
+            << "  Contemporary (2000+)\n";
+        std::cout << "Enter era: ";
+        std::string era;
+        std::getline(std::cin, era);
+        EventDisplay::displayEventsByEra(era);
+        break;
+    }
+    default:
+        std::cout << "Invalid choice. Showing all events.\n";
+        EventDisplay::displayEvents();
+        break;
+    }
 
     std::cout << "Enter the title of the event you want more details on (or press Enter to skip): ";
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::string selectedTitle;
     std::getline(std::cin, selectedTitle);
 

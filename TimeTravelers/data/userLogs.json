@@ -1,10 +1,14 @@
 {
     "AniVez": {
         "artifacts": [
-            "Moon Rock"
+            "Moon Rock",
+            "Mars Rover Wheel",
+            "Edison's Lightbulb"
         ],
         "eras": [
-            "Modern"
+            "Modern",
+            "Contemporary",
+            "Industrial"
         ]
     }
 }
