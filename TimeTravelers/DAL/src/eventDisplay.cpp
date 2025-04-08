@@ -12,12 +12,25 @@
 using json = nlohmann::json;
 
 namespace EventDisplay {
+    static std::string determineEra(int year) {
+        if (year < 500)             return "Ancient";
+        else if (year < 1000)       return "Classical";
+        else if (year < 1500)       return "Medieval";
+        else if (year < 1700)       return "Renaissance";
+        else if (year < 1900)       return "Industrial";
+        else if (year < 2000)       return "Modern";
+        else                        return "Contemporary";
+    }
 
     void displayEvents() {
         json data = FileManager::loadJSON("events.json");
-
         if (!data.is_array()) {
             std::cerr << "Error: events.json is not a valid array or could not be loaded.\n";
+            return;
+        }
+
+        if (data.empty()) {
+            std::cout << "No events found in events.json.\n";
             return;
         }
 
@@ -27,13 +40,11 @@ namespace EventDisplay {
             std::string country = event.value("country", "<Unknown>");
 
             std::string yearStr = (year == 0) ? "Unknown" : std::to_string(year);
-
             std::string titleLine = "Title: " + title;
             std::string yearLine = "Year: " + yearStr;
             std::string countryLine = "Country: " + country;
 
             size_t maxLen = std::max({ titleLine.size(), yearLine.size(), countryLine.size() });
-
             std::string border = "+" + std::string(maxLen + 2, '-') + "+";
 
             std::cout << border << std::endl;
@@ -50,9 +61,147 @@ namespace EventDisplay {
 
             std::cout << border << std::endl << std::endl;
         }
+    }
 
-        if (data.empty()) {
-            std::cout << "No events found in events.json.\n";
+    void displayEventsByCountry(const std::string& countryFilter) {
+        json data = FileManager::loadJSON("events.json");
+        if (!data.is_array()) {
+            std::cerr << "Error: events.json is not a valid array or could not be loaded.\n";
+            return;
+        }
+
+        bool anyFound = false;
+        for (const auto& event : data) {
+            std::string title = event.value("title", "<Unknown>");
+            int year = event.value("year", 0);
+            std::string country = event.value("country", "<Unknown>");
+
+            if (country == countryFilter) {
+                anyFound = true;
+
+                std::string yearStr = (year == 0) ? "Unknown" : std::to_string(year);
+                std::string titleLine = "Title: " + title;
+                std::string yearLine = "Year: " + yearStr;
+                std::string countryLine = "Country: " + country;
+
+                size_t maxLen = std::max({ titleLine.size(), yearLine.size(), countryLine.size() });
+                std::string border = "+" + std::string(maxLen + 2, '-') + "+";
+
+                std::cout << border << std::endl;
+
+                auto printLine = [&](const std::string& line) {
+                    std::cout << "| " << line
+                        << std::string(maxLen - line.size(), ' ')
+                        << " |" << std::endl;
+                    };
+
+                printLine(titleLine);
+                printLine(yearLine);
+                printLine(countryLine);
+
+                std::cout << border << std::endl << std::endl;
+            }
+        }
+
+        if (!anyFound) {
+            std::cout << "No events found for country: " << countryFilter << std::endl;
+        }
+    }
+
+    void displayEventsByYearRange(int startYear, int endYear) {
+        json data = FileManager::loadJSON("events.json");
+        if (!data.is_array()) {
+            std::cerr << "Error: events.json is not a valid array or could not be loaded.\n";
+            return;
+        }
+
+        if (startYear > endYear) {
+            std::cerr << "Invalid range: " << startYear << " > " << endYear << std::endl;
+            return;
+        }
+
+        bool anyFound = false;
+        for (const auto& event : data) {
+            std::string title = event.value("title", "<Unknown>");
+            int year = event.value("year", 0);
+            std::string country = event.value("country", "<Unknown>");
+
+            if (year >= startYear && year <= endYear) {
+                anyFound = true;
+
+                std::string yearStr = (year == 0) ? "Unknown" : std::to_string(year);
+                std::string titleLine = "Title: " + title;
+                std::string yearLine = "Year: " + yearStr;
+                std::string countryLine = "Country: " + country;
+
+                size_t maxLen = std::max({ titleLine.size(), yearLine.size(), countryLine.size() });
+                std::string border = "+" + std::string(maxLen + 2, '-') + "+";
+
+                std::cout << border << std::endl;
+
+                auto printLine = [&](const std::string& line) {
+                    std::cout << "| " << line
+                        << std::string(maxLen - line.size(), ' ')
+                        << " |" << std::endl;
+                    };
+
+                printLine(titleLine);
+                printLine(yearLine);
+                printLine(countryLine);
+
+                std::cout << border << std::endl << std::endl;
+            }
+        }
+
+        if (!anyFound) {
+            std::cout << "No events found in the range " << startYear << "-" << endYear << std::endl;
+        }
+    }
+
+    void displayEventsByEra(const std::string& eraFilter) {
+        json data = FileManager::loadJSON("events.json");
+        if (!data.is_array()) {
+            std::cerr << "Error: events.json is not a valid array or could not be loaded.\n";
+            return;
+        }
+
+        bool anyFound = false;
+        for (const auto& event : data) {
+            std::string title = event.value("title", "<Unknown>");
+            int year = event.value("year", 0);
+            std::string country = event.value("country", "<Unknown>");
+
+            std::string eventEra = determineEra(year);
+
+            if (eventEra == eraFilter) {
+                anyFound = true;
+
+                std::string yearStr = (year == 0) ? "Unknown" : std::to_string(year);
+                std::string titleLine = "Title: " + title;
+                std::string yearLine = "Year: " + yearStr;
+                std::string countryLine = "Country: " + country;
+
+                size_t maxLen = std::max({ titleLine.size(), yearLine.size(), countryLine.size() });
+                std::string border = "+" + std::string(maxLen + 2, '-') + "+";
+
+                std::cout << border << std::endl;
+
+                auto printLine = [&](const std::string& line) {
+                    std::cout << "| " << line
+                        << std::string(maxLen - line.size(), ' ')
+                        << " |" << std::endl;
+                    };
+
+                printLine(titleLine);
+                printLine(yearLine);
+                printLine(countryLine);
+
+                std::cout << border << std::endl << std::endl;
+            }
+        }
+
+        if (!anyFound) {
+            std::cout << "No events found for era: " << eraFilter << std::endl;
         }
     }
 
@@ -99,5 +248,4 @@ namespace EventDisplay {
             std::cout << "Event not found with title: " << title << std::endl;
         }
     }
-
 }
