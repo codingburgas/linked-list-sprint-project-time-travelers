@@ -194,6 +194,49 @@ namespace EventDisplay {
         }
     }
 
+    // Searches for events whose title contains the given keyword (case-sensitive) and displays matching events.
+    void displayEventsByTitleKeyword(const std::string& keyword) {
+        json data = FileManager::loadJSON("events.json");
+        if (!data.is_array()) {
+            std::cerr << "Error: events.json is not valid.\n";
+            return;
+        }
+        bool anyFound = false;
+        for (const auto& event : data) {
+            std::string title = event.value("title", "<Unknown>");
+
+            if (title.find(keyword) != std::string::npos) {
+                anyFound = true;
+                int year = event.value("year", 0);
+
+                std::string country = event.value("country", "<Unknown>");
+                std::string yearStr = (year == 0) ? "Unknown" : std::to_string(year);
+                std::string titleLine = "Title: " + title;
+                std::string yearLine = "Year: " + yearStr;
+                std::string countryLine = "Country: " + country;
+
+                size_t maxLen = std::max({ titleLine.size(), yearLine.size(), countryLine.size() });
+
+                std::string border = "+" + std::string(maxLen + 2, '-') + "+";
+                std::cout << border << std::endl;
+
+                auto printLine = [&](const std::string& line) {
+                    std::cout << "| " << line
+                        << std::string(maxLen - line.size(), ' ')
+                        << " |" << std::endl;
+                    };
+
+                printLine(titleLine);
+                printLine(yearLine);
+                printLine(countryLine);
+
+                std::cout << border << std::endl << std::endl;
+            }
+        }
+        if (!anyFound) {
+            std::cout << "No events found with keyword: " << keyword << std::endl;
+        }
+    }
 
     //Filters events by title
     void showEventDetailsByTitle(const std::string& title) {

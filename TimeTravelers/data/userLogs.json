@@ -10,5 +10,13 @@
             "Contemporary",
             "Industrial"
         ]
+    },
+    "test": {
+        "artifacts": [
+            "Mars Rover Wheel"
+        ],
+        "eras": [
+            "Contemporary"
+        ]
     }
 }

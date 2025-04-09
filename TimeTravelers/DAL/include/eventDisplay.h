@@ -7,4 +7,5 @@ namespace EventDisplay {
     void displayEventsByYearRange(int startYear, int endYear);
     void displayEventsByEra(const std::string& era);
     void showEventDetailsByTitle(const std::string& title);
+    void displayEventsByTitleKeyword(const std::string& keyword);
 }

@@ -1,11 +1,137 @@
 [
     {
-        "author": "test",
-        "consequence": "da",
+        "author": "AniVez",
+        "consequence": "The Colosseum became an enduring symbol of Roman engineering, culture, and imperial power, influencing stadium architecture for centuries and cementing entertainment as a tool of governance.",
+        "country": "Italy",
+        "description": "The Colosseum, or Flavian Amphitheatre, was inaugurated under Emperor Titus. Capable of seating over 50,000 spectators, it hosted gladiator games, animal hunts, and public executions as a display of Roman might and entertainment.",
+        "prerequisite": "The Flavian dynasty sought to restore Rome's prestige after Nero's reign and the Great Fire of 64 AD. Public morale and political legitimacy were bolstered through grand architectural projects.",
+        "title": "Construction of the Colosseum",
+        "year": 80
+    },
+    {
+        "author": "AniVez",
+        "consequence": "China was divided into rival kingdoms, sparking decades of conflict and cultural evolution. It marked a shift from centralized control to regional warlordism.",
+        "country": "China",
+        "description": "The fall of the Han dynasty ended over four centuries of imperial rule, ushering in the chaotic Three Kingdoms period. Central authority collapsed, leading to fragmentation and civil war.",
+        "prerequisite": "Long-term corruption in the imperial court, eunuch dominance, heavy taxation, land inequality, and large-scale uprisings such as the Yellow Turban Rebellion weakened the state.",
+        "title": "Han Dynasty Decline",
+        "year": 220
+    },
+    {
+        "author": "AniVez",
+        "consequence": "The Islamic Golden Age followed, influencing science, philosophy, law, and architecture across Asia, Africa, and Europe. The religious and political map of the Middle East was permanently altered.",
+        "country": "Saudi Arabia",
+        "description": "After Prophet Muhammad's death, his followers formed the Rashidun Caliphate, which rapidly expanded through military conquests and diplomacy, spreading Islam across vast territories.",
+        "prerequisite": "Islam unified disparate Arab tribes under a single religious and political ideology, empowering them with a strong sense of mission and governance.",
+        "title": "Rise of the Islamic Caliphate",
+        "year": 632
+    },
+    {
+        "author": "AniVez",
+        "consequence": "Sparked the rise of the Holy Roman Empire and solidified the medieval power structure of divine kingship, influencing European politics for centuries.",
+        "country": "France",
+        "description": "On Christmas Day, Pope Leo III crowned Charlemagne as Emperor of the Romans, reinforcing the alliance between the papacy and Western rulers.",
+        "prerequisite": "Charlemagne's military conquests expanded Frankish influence and secured the Church's support through protection and religious reform.",
+        "title": "Charlemagne Crowned Emperor",
+        "year": 800
+    },
+    {
+        "author": "AniVez",
+        "consequence": "The Norman Conquest introduced feudalism, French influence, and architectural transformation, laying the groundwork for the English monarchy and legal system.",
+        "country": "England",
+        "description": "William, Duke of Normandy, defeated Anglo-Saxon King Harold II at Hastings, becoming King of England and reshaping the country's future.",
+        "prerequisite": "The death of Edward the Confessor without an heir led to competing claims and instability in England's succession.",
+        "title": "Battle of Hastings",
+        "year": 1066
+    },
+    {
+        "author": "AniVez",
+        "consequence": "Hungary and Poland suffered massive devastation, but the sudden death of the Great Khan led to Mongol withdrawal. The invasion left a legacy of fear and admiration across Europe.",
+        "country": "Hungary",
+        "description": "The Mongols under Batu Khan defeated European forces at the Battle of Mohi, showcasing their unmatched mobility and tactical brilliance.",
+        "prerequisite": "The Mongol Empire's rapid expansion under Genghis Khan and his successors aimed to conquer trade routes and consolidate power.",
+        "title": "Mongol Invasion of Europe",
+        "year": 1241
+    },
+    {
+        "author": "AniVez",
+        "consequence": "Galileo was placed under house arrest. The trial highlighted the conflict between science and religion, inspiring Enlightenment thinkers and the eventual secularization of science.",
+        "country": "Italy",
+        "description": "Galileo was tried by the Inquisition for supporting Copernicus' theory that the Earth orbits the Sun, a challenge to Church doctrine.",
+        "prerequisite": "The Scientific Revolution, fueled by Renaissance inquiry and observation, clashed with the Catholic Church's geocentric views.",
+        "title": "Galileo's Heliocentrism Trial",
+        "year": 1633
+    },
+    {
+        "author": "AniVez",
+        "consequence": "The Tokugawa period ushered in peace, isolationist policies (sakoku), and cultural flourishing, including kabuki, haiku, and samurai code enforcement.",
+        "country": "Japan",
+        "description": "Tokugawa Ieyasu established a military government that ended centuries of civil war and centralized power in Edo (now Tokyo).",
+        "prerequisite": "The end of the Sengoku (Warring States) period, where regional lords vied for dominance, left Japan exhausted and in need of unity.",
+        "title": "Establishment of the Tokugawa Shogunate",
+        "year": 1603
+    },
+    {
+        "author": "AniVez",
+        "consequence": "The Revolutionary War ensued, followed by the creation of the U.S. Constitution. The success inspired independence movements worldwide.",
+        "country": "USA",
+        "description": "The Thirteen Colonies declared independence from British rule, asserting their right to self-governance and laying the foundation for a democratic republic.",
+        "prerequisite": "Colonial frustration over taxation without representation, oppressive laws like the Stamp Act, and Enlightenment ideas of liberty and rights.",
+        "title": "American Declaration of Independence",
+        "year": 1776
+    },
+    {
+        "author": "AniVez",
+        "consequence": "Massive urban migration, labor reform, and global industrialization, which fueled colonialism and reshaped economies and societies.",
+        "country": "United Kingdom",
+        "description": "A major transition to mechanized production began in Britain, revolutionizing industries such as textiles, steel, and transport.",
+        "prerequisite": "Innovations like the spinning jenny, steam engine, and access to coal and capital enabled large-scale factory systems.",
+        "title": "Industrial Revolution Begins in Britain",
+        "year": 1760
+    },
+    {
+        "author": "AniVez",
+        "consequence": "Reunification of Germany, collapse of the Soviet Union in 1991, and the spread of liberal democracy across Eastern Europe.",
         "country": "Germany",
-        "description": "da",
-        "prerequisite": "da",
-        "title": "WW2",
-        "year": 1942
+        "description": "Citizens of East and West Berlin tore down the wall separating them, symbolizing the end of communist rule in Eastern Europe.",
+        "prerequisite": "Economic hardship in the Eastern Bloc, mass protests, and liberal reforms in the Soviet Union under Gorbachev.",
+        "title": "Fall of the Berlin Wall",
+        "year": 1989
+    },
+    {
+        "author": "AniVez",
+        "consequence": "The traumatic Partition with Pakistan led to widespread violence and displacement, but India emerged as the world's largest democracy.",
+        "country": "India",
+        "description": "After decades of peaceful protest and negotiation, India gained independence from British rule, ending over 200 years of colonization.",
+        "prerequisite": "Nonviolent resistance led by Gandhi, World War II's impact on Britain, and rising global pressure to end colonialism.",
+        "title": "India Gains Independence",
+        "year": 1947
+    },
+    {
+        "author": "AniVez",
+        "consequence": "Several regimes fell, including in Egypt and Libya, but the region also faced civil wars, instability, and contested transitions to democracy.",
+        "country": "Tunisia",
+        "description": "Protests erupted after a street vendor's self-immolation, sparking nationwide demonstrations and eventually overthrowing the government.",
+        "prerequisite": "Authoritarian regimes, economic stagnation, youth unemployment, and social media's power to mobilize dissent.",
+        "title": "Arab Spring Begins",
+        "year": 2010
+    },
+    {
+        "author": "AniVez",
+        "consequence": "Millions of deaths, mental health crises, economic slowdowns, accelerated digitization, and increased focus on public health infrastructure.",
+        "country": "China ",
+        "description": "A novel coronavirus (SARS-CoV-2) outbreak led to a global pandemic, drastically altering health systems, economies, and daily life.",
+        "prerequisite": "High global travel, inadequate early containment, and zoonotic virus transmission from animals to humans.",
+        "title": "COVID-19 Pandemic",
+        "year": 2020
+    },
+    {
+        "author": "AniVez",
+        "consequence": "ahjkedrghjkr",
+        "country": "oaeirfjgoarfigh",
+        "description": "oairfghoafhig",
+        "prerequisite": "oigaorfigh",
+        "title": "klaserdfghaejkrgh",
+        "year": 1234
     }
 ]
