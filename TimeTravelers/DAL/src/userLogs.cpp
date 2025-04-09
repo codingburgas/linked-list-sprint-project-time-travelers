@@ -8,6 +8,7 @@ json UserLogs::logsData = json();
 
 static const std::string LOGS_FILE_PATH = "../data/userLogs.json";
 
+// Loads user progress from the logs file and ensures an entry exists for the given user.
 bool UserLogs::loadUserProgress(const std::string& username) {
     std::ifstream inFile(LOGS_FILE_PATH);
     if (inFile.good()) {
@@ -39,6 +40,9 @@ bool UserLogs::loadUserProgress(const std::string& username) {
     return true;
 }
 
+// Updates user progress by checking if the era (derived from eventYear) is new for the user.
+// If the era is not yet recorded, adds it along with the associated artifact.
+// Returns the artifact name if a new achievement is unlocked, or an empty string otherwise.
 std::string UserLogs::updateUserProgress(const std::string& username, int eventYear) {
     if (!logsData.is_object()) {
         loadUserProgress(username);
@@ -72,6 +76,7 @@ std::string UserLogs::updateUserProgress(const std::string& username, int eventY
     return std::string();
 }
 
+// Saves the current user progress from memory back to the JSON file.
 bool UserLogs::saveUserProgress() {
     std::cout << "Saving user logs to: " << LOGS_FILE_PATH << std::endl;
 
@@ -92,6 +97,7 @@ bool UserLogs::saveUserProgress() {
     return true;
 }
 
+// Determines and returns the era based on the provided year.
 std::string UserLogs::determineEra(int year) {
     if (year < 500) {
         return "Ancient";
@@ -116,6 +122,7 @@ std::string UserLogs::determineEra(int year) {
     }
 }
 
+// Returns the achievement artifact associated with the given era.
 std::string UserLogs::getArtifactForEra(const std::string& era) {
     if (era == "Ancient")       return "Cleopatra's Scroll";
     if (era == "Classical")     return "Charlemagne's Sword";

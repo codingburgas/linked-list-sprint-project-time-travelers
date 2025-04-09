@@ -1,9 +1,5 @@
 #include "timelineDisplay.h"
-#include "files.h"
-#include "json.hpp"
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include "DAL.precompile.h"
 
 using json = nlohmann::json;
 
@@ -14,6 +10,7 @@ namespace TimelineDisplay {
         std::string title;
     };
 
+    // Displays a timeline of events sorted by year in ascending order.
     void displayTimeline() {
         json data = FileManager::loadJSON("events.json");
         if (!data.is_array()) {

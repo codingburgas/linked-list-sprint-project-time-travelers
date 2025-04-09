@@ -1,6 +1,6 @@
-#include "register.h"
-#include "../../DAL/include/files.h"
+#include "BLL.precompile.h"
 
+// Handles the registration of a new user
 bool RegisterManager::registerUser(const std::string& username, const std::string& password) {
     json users = FileManager::loadJSON("users.json");
 

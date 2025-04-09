@@ -4,6 +4,8 @@
 
 using json = nlohmann::json;
 
+
+// Saves a new event to the "events.json" file.
 void EventRepository::saveEvent(const Event& event) {
     json eventsArray = FileManager::loadJSON("events.json");
 
@@ -25,6 +27,9 @@ void EventRepository::saveEvent(const Event& event) {
     FileManager::saveJSON("events.json", eventsArray);
 }
 
+
+// Updates an existing event (matching by title and author) with new data.
+// Returns true if the event was found and updated.
 bool EventRepository::updateEvent(const std::string& oldTitle, const Event& updatedEvent, const std::string& username) {
     json eventsArray = FileManager::loadJSON("events.json");
     if (!eventsArray.is_array()) {
@@ -55,6 +60,8 @@ bool EventRepository::updateEvent(const std::string& oldTitle, const Event& upda
     return found;
 }
 
+// Deletes an event from "events.json" if its title and author match the given values.
+// Returns true if the event was found and deleted.
 bool EventRepository::deleteEvent(const std::string& title, const std::string& username) {
     json eventsArray = FileManager::loadJSON("events.json");
     if (!eventsArray.is_array()) {

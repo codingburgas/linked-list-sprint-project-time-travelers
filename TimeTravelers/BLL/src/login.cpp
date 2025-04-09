@@ -1,8 +1,6 @@
-#include "login.h"
-#include "../../DAL/include/files.h"
-#include "../../DAL/include/globals.h"
-#include <iomanip>
+#include "BLL.precompile.h"
 
+// Logs in a user by checking the provided username and password with the stored in the JSON file
 bool LoginManager::login(const std::string& username, const std::string& password) {
     json users = FileManager::loadJSON("users.json");
 

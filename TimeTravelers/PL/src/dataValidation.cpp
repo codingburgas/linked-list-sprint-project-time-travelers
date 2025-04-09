@@ -1,5 +1,6 @@
 #include "mainMenu.h"
 
+// Validates the email address by ensuring it contains an '@' and a '.'
 void MainMenu::emailValidation() {
     while (email.find('@') == std::string::npos || email.find('.') == std::string::npos) {
         std::cout << std::setw(56) << "                    Enter your email: ";
@@ -14,6 +15,7 @@ void MainMenu::emailValidation() {
     }
 }
 
+// Validates the password by checking for at least one uppercase letter, digit, special character, and a minimum length of 8
 void MainMenu::passwordValidation() {
     while (!hasUpper || !hasDigit || !hasSpecialChar || !passLength) {
         std::cout << std::setw(56) << "                    Enter your pasword: ";
@@ -41,6 +43,7 @@ void MainMenu::passwordValidation() {
     }
 }
 
+// Confirms that the password and confirm password entries match
 void MainMenu::passwordMatch() {
     while (password != confirmPassword) {
         std::cout << std::setw(56) << "                    Confirm Password: ";
@@ -55,6 +58,7 @@ void MainMenu::passwordMatch() {
     }
 }
 
+// Validates the username by ensuring it contains at least one uppercase letter
 void MainMenu::usernameValidation() {
     while (!hasUpper) {
         std::cout << std::setw(59) << "                    Enter your username: ";

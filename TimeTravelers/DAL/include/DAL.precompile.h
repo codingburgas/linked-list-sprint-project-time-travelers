@@ -3,3 +3,7 @@
 #include <fstream>
 #include <string>
 #include "json.hpp"
+#include <algorithm>
+#include <vector>
+#include <limits>
+#include "files.h"

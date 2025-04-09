@@ -1,5 +1,6 @@
 #include "mainMenu.h"
 
+// Clears the console screen (cross-platform)
 static void clearScreen() {
 #ifdef _WIN64
     system("cls");
@@ -9,6 +10,7 @@ static void clearScreen() {
 }
 
 
+//Displays the main menu before logging in
 void MainMenu::displayMainMenu() {
     drawTeamName();
     std::cout << std::setw(97) << "==========================================================================\n";
@@ -34,6 +36,7 @@ void MainMenu::displayMainMenu() {
     }
 }
 
+//Displays the team name
 void MainMenu::drawTeamName() {
     std::cout << std::setw(94) << "       _____ _                  _____                    _ _               \n";
     std::cout << std::setw(94) << "      |_   _(_)_ __ ___   ___  |_   _| __ __ ___   _____| | | ___ _ __ ___ \n";
@@ -43,6 +46,7 @@ void MainMenu::drawTeamName() {
     std::cout << '\n';
 }
 
+//Displays the login menu
 void MainMenu::loginHandler() {
     clearScreen();
     std::cout << '\n';
@@ -73,6 +77,7 @@ void MainMenu::loginHandler() {
     std::cout << std::setw(97) << "==========================================================================\n";
 }
 
+//Displays the register menu
 void MainMenu::drawRegister() {
     clearScreen();
     std::cout << '\n';
@@ -110,6 +115,7 @@ void MainMenu::registerHandler() {
     }
 }
 
+//Displays the main menu after logging in
 void MainMenu::displayUserMenu() {
     clearScreen();
     drawTeamName();
@@ -154,6 +160,7 @@ void MainMenu::displayUserMenu() {
     }
 }
 
+//Displays create event winwow
 void MainMenu::createEventHandler() {
     clearScreen();
     drawTeamName();
@@ -167,6 +174,7 @@ void MainMenu::createEventHandler() {
     displayUserMenu();
 }
 
+//Displays browse events window
 void MainMenu::browseEventsHandler() {
     clearScreen();
     drawTeamName();
@@ -251,6 +259,8 @@ void MainMenu::browseEventsHandler() {
     displayUserMenu();
 }
 
+
+//Displays the timeline of the events
 void MainMenu::timelineHandler() {
     clearScreen();
     drawTeamName();
@@ -266,6 +276,8 @@ void MainMenu::timelineHandler() {
     displayUserMenu();
 }
 
+
+//Displays the AI chat window
 void MainMenu::aiChatHandler() {
     clearScreen();
     drawTeamName();

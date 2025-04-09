@@ -11,6 +11,7 @@ static size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* use
     return size * nmemb;
 }
 
+//Starts the AI chat
 void AIchat::startChat() {
     std::string userInput;
     std::string historicalFigure;
@@ -26,6 +27,7 @@ void AIchat::startChat() {
         std::getline(std::cin, userInput);
         if (userInput == "exit") break;
 
+        // Build the JSON request for the API
         json request = {
             {"contents", {{
                 {"role", "user"},

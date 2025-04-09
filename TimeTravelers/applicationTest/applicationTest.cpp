@@ -11,7 +11,8 @@ namespace applicationTest
 	TEST_CLASS(applicationTest)
 	{
 	public:
-		
+
+		// Test to verify that registration succeeds on first attempt and fails on duplicate
 		TEST_METHOD(registerTest)
 		{
 			json empty;
@@ -19,8 +20,8 @@ namespace applicationTest
 
 			std::string username = "testUser";
 			std::string password = "password123#";
-			
-			
+
+
 			bool firstAttempt = RegisterManager::registerUser(username, password);
 			bool secondAttempt = RegisterManager::registerUser(username, "testPass12#");
 
@@ -29,6 +30,7 @@ namespace applicationTest
 
 		}
 
+		// Test to verify that login succeeds with the correct password and fails with an incorrect one
 		TEST_METHOD(loginTest)
 		{
 			json empty;

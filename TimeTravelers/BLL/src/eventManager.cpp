@@ -1,13 +1,10 @@
-#include "eventManager.h"
-#include "../../DAL/include/eventRepository.h"
-#include "../../DAL/include/globals.h"
+#include "BLL.precompile.h"
 
-#include <iostream>
-#include <limits>
-
+// Creates a new event by prompting the user for input, sets the current user as the author, and saves the event.
 void EventManager::createEvent() {
     Event newEvent;
 
+    // Clear any leftover input from the input buffer
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     std::cout << "Enter Title of the historic event: ";
@@ -29,6 +26,7 @@ void EventManager::createEvent() {
     std::cout << "Enter Consequence: ";
     std::getline(std::cin, newEvent.consequence);
 
+    // Set the event author to the currently logged-in user.
     newEvent.author = currentUsername;
 
     EventRepository::saveEvent(newEvent);

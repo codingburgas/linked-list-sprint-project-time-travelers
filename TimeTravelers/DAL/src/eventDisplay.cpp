@@ -1,15 +1,9 @@
 #include "eventDisplay.h"
 #include "files.h"
-#include "json.hpp"
 #include "userLogs.h"
 #include "globals.h"
 #include "../../DAL/include/eventRepository.h"
-#include <iostream>
-#include <fstream>
-#include <algorithm>
-#include <vector>
-#include <string>
-#include <limits>
+#include "DAL.precompile.h"
 
 using json = nlohmann::json;
 
@@ -25,6 +19,7 @@ namespace EventDisplay {
         else                        return "Contemporary";
     }
 
+    //Displaying all the events
     void displayEvents() {
         json data = FileManager::loadJSON("events.json");
         if (!data.is_array()) {
@@ -56,6 +51,7 @@ namespace EventDisplay {
         }
     }
 
+    //Filters events by country
     void displayEventsByCountry(const std::string& countryFilter) {
         json data = FileManager::loadJSON("events.json");
         if (!data.is_array()) {
@@ -100,6 +96,8 @@ namespace EventDisplay {
         }
     }
 
+
+    //Filters events by year range
     void displayEventsByYearRange(int startYear, int endYear) {
         json data = FileManager::loadJSON("events.json");
         if (!data.is_array()) {
@@ -149,6 +147,8 @@ namespace EventDisplay {
         }
     }
 
+
+    //Filters events by era
     void displayEventsByEra(const std::string& eraFilter) {
         json data = FileManager::loadJSON("events.json");
         if (!data.is_array()) {
@@ -194,6 +194,8 @@ namespace EventDisplay {
         }
     }
 
+
+    //Filters events by title
     void showEventDetailsByTitle(const std::string& title) {
         json data = FileManager::loadJSON("events.json");
         if (!data.is_array()) {
