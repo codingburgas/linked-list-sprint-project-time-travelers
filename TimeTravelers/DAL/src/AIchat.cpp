@@ -1,17 +1,14 @@
-#include "AIchat.h"
-
-
+﻿#include "AIchat.h"
 using json = nlohmann::json;
 
 static std::string API_KEY = "AIzaSyAYeY2l75PWFTA_YWBwbYl1IKZUn-tV-Ag";
-static std::string API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + API_KEY;
+static std::string API_URL = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent?key=" + API_KEY;
 
 static size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* userp) {
     ((std::string*)userp)->append((char*)contents, size * nmemb);
     return size * nmemb;
 }
 
-//Starts the AI chat
 void AIchat::startChat() {
     std::string userInput;
     std::string historicalFigure;
@@ -27,14 +24,18 @@ void AIchat::startChat() {
         std::getline(std::cin, userInput);
         if (userInput == "exit") break;
 
-        // Build the JSON request for the API
         json request = {
-            {"contents", {{
-                {"role", "user"},
-                {"parts", {{ "text", "Pretend you are " + historicalFigure + ". " + userInput }}}
-            }}}
+            {"contents", json::array({
+                {
+                    {"role", "user"},
+                    {"parts", json::array({
+                        { {"text", "Pretend you are " + historicalFigure + ". " + userInput} }
+                    })}
+                }
+            })}
         };
 
+        std::string requestStr = request.dump();
         std::string readBuffer;
         CURL* curl = curl_easy_init();
         if (curl) {
@@ -42,7 +43,7 @@ void AIchat::startChat() {
             headers = curl_slist_append(headers, "Content-Type: application/json");
 
             curl_easy_setopt(curl, CURLOPT_URL, API_URL.c_str());
-            curl_easy_setopt(curl, CURLOPT_POSTFIELDS, request.dump().c_str());
+            curl_easy_setopt(curl, CURLOPT_POSTFIELDS, requestStr.c_str());
             curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
             curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
             curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
@@ -58,11 +59,20 @@ void AIchat::startChat() {
 
             try {
                 auto response = json::parse(readBuffer);
-                auto reply = response["candidates"][0]["content"]["parts"][0]["text"];
-                std::cout << historicalFigure << ": " << reply << "\n";
+
+                if (response.contains("candidates")) {
+                    auto reply = response["candidates"][0]["content"]["parts"][0]["text"];
+                    std::cout << historicalFigure << ": \"" << reply.get<std::string>() << "\"\n";
+                }
+                else if (response.contains("error")) {
+                    std::cout << "API Error: " << response["error"]["message"] << "\n";
+                }
+                else {
+                    std::cout << "Unexpected response format.\n";
+                }
             }
-            catch (...) {
-                std::cout << "Error parsing response.\n";
+            catch (const std::exception& e) {
+                std::cout << "JSON Parse Error: " << e.what() << "\n";
             }
         }
     }
