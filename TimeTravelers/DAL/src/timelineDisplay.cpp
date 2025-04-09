@@ -11,18 +11,19 @@ namespace TimelineDisplay {
     };
 
     // Displays a timeline of events sorted by year in ascending order.
-    void displayTimeline() {
-        json data = FileManager::loadJSON("events.json");
-        if (!data.is_array()) {
-            std::cerr << "Error: events.json is not a valid array or could not be loaded.\n";
+    void displayTimeline(EventManager& manager) {
+        Event* current = manager.getHead();
+
+        if (!current) {
+            std::cout << "No events found.\n";
             return;
         }
 
         std::vector<TimelineEvent> timelineEvents;
-        for (const auto& event : data) {
-            int year = event.value("year", 0);
-            std::string title = event.value("title", "<Unknown>");
-            timelineEvents.push_back({ year, title });
+
+        while (current) {
+            timelineEvents.push_back({ current->year, current->title });
+            current = current->next;
         }
 
         std::sort(timelineEvents.begin(), timelineEvents.end(), [](const TimelineEvent& a, const TimelineEvent& b) {
@@ -32,7 +33,6 @@ namespace TimelineDisplay {
         for (const auto& te : timelineEvents) {
             std::cout << std::setw(50) << "[" << te.year << "] ---- " << te.title << "\n";
         }
-
     }
 
 }

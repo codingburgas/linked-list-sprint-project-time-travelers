@@ -31,6 +31,7 @@ public:
     void aiChatHandler();
 
 private:
+    EventManager manager;
     int choice;
 
     std::string email = "";

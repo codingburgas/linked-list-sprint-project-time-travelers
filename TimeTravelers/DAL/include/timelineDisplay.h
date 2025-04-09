@@ -1,5 +1,6 @@
 #pragma once
+#include "../../BLL/include/eventManager.h"
 
 namespace TimelineDisplay {
-    void displayTimeline();
+    void displayTimeline(EventManager& manager);
 }

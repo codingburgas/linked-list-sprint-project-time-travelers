@@ -4,7 +4,6 @@
 
 #include <limits>
 #include "eventManager.h"
-#include "../../DAL/include/eventRepository.h"
 #include "../../DAL/include/globals.h"
 
 #include "login.h"

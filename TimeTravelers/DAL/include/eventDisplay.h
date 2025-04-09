@@ -1,11 +1,12 @@
 #pragma once
 #include <string>
+#include "../../BLL/include/eventManager.h"
 
 namespace EventDisplay {
-    void displayEvents();
-    void displayEventsByCountry(const std::string& country);
-    void displayEventsByYearRange(int startYear, int endYear);
-    void displayEventsByEra(const std::string& era);
-    void showEventDetailsByTitle(const std::string& title);
-    void displayEventsByTitleKeyword(const std::string& keyword);
+    void displayEvents(EventManager& manager);
+    void displayEventsByCountry(EventManager& manager, const std::string& countryFilter);
+    void displayEventsByYearRange(EventManager& manager, int startYear, int endYear);
+    void displayEventsByEra(EventManager& manager, const std::string& eraFilter);
+    void displayEventsByTitleKeyword(EventManager& manager, const std::string& keyword);
+    void showEventDetailsByTitle(EventManager& manager, const std::string& title);
 }

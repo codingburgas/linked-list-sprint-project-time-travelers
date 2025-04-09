@@ -168,7 +168,7 @@ void MainMenu::createEventHandler() {
     std::cout << std::setw(97) << "|                             CREATE EVENT                               |\n";
     std::cout << std::setw(97) << "==========================================================================\n";
 
-    EventManager::createEvent();
+    manager.createEvent();
 
     system("pause");
     displayUserMenu();
@@ -176,6 +176,7 @@ void MainMenu::createEventHandler() {
 
 //Displays browse events window
 void MainMenu::browseEventsHandler() {
+
     clearScreen();
     drawTeamName();
 
@@ -198,14 +199,14 @@ void MainMenu::browseEventsHandler() {
     switch (filterChoice) {
     case 1: {
         std::cout << "\n\n";
-        EventDisplay::displayEvents();
+        EventDisplay::displayEvents(manager);
         break;
     }
     case 2: {
         std::cout << "\nEnter the country name: ";
         std::string country;
         std::getline(std::cin, country);
-        EventDisplay::displayEventsByCountry(country);
+        EventDisplay::displayEventsByCountry(manager, country);
         break;
     }
     case 3: {
@@ -215,7 +216,7 @@ void MainMenu::browseEventsHandler() {
         std::cout << "Enter end year: ";
         std::cin >> endYear;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        EventDisplay::displayEventsByYearRange(startYear, endYear);
+        EventDisplay::displayEventsByYearRange(manager, startYear, endYear);
         break;
     }
     case 4: {
@@ -230,19 +231,19 @@ void MainMenu::browseEventsHandler() {
         std::cout << "Enter era: ";
         std::string era;
         std::getline(std::cin, era);
-        EventDisplay::displayEventsByEra(era);
+        EventDisplay::displayEventsByEra(manager, era);
         break;
     }
     case 5: {
         std::cout << "\nEnter title keyword to search for: ";
         std::string keyword;
         std::getline(std::cin, keyword);
-        EventDisplay::displayEventsByTitleKeyword(keyword);
+        EventDisplay::displayEventsByTitleKeyword(manager, keyword);
         break;
     }
     default:
         std::cout << "Invalid choice. Showing all events.\n";
-        EventDisplay::displayEvents();
+        EventDisplay::displayEvents(manager);
         break;
     }
 
@@ -251,7 +252,7 @@ void MainMenu::browseEventsHandler() {
     std::getline(std::cin, selectedTitle);
 
     if (!selectedTitle.empty()) {
-        EventDisplay::showEventDetailsByTitle(selectedTitle);
+        EventDisplay::showEventDetailsByTitle(manager, selectedTitle);
         std::cout << "Press Enter to continue...";
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
@@ -268,7 +269,7 @@ void MainMenu::timelineHandler() {
     std::cout << std::setw(97) << "|                                TIMELINE                                |\n";
     std::cout << std::setw(97) << "==========================================================================\n";
 
-    TimelineDisplay::displayTimeline();
+    TimelineDisplay::displayTimeline(manager);
 
     std::cout << "Press Enter to return to menu...";
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');

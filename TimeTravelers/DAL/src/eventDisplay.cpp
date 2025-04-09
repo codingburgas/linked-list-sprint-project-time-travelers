@@ -2,7 +2,6 @@
 #include "files.h"
 #include "userLogs.h"
 #include "globals.h"
-#include "../../DAL/include/eventRepository.h"
 #include "DAL.precompile.h"
 
 using json = nlohmann::json;
@@ -20,334 +19,260 @@ namespace EventDisplay {
     }
 
     //Displaying all the events
-    void displayEvents() {
-        json data = FileManager::loadJSON("events.json");
-        if (!data.is_array()) {
-            std::cerr << "Error: events.json is not valid.\n";
-            return;
-        }
-        if (data.empty()) {
+    void displayEvents(EventManager& manager) {
+        Event* current = manager.getHead();
+        if (!current) {
             std::cout << "No events found.\n";
             return;
         }
-        for (const auto& event : data) {
-            std::string title = event.value("title", "<Unknown>");
-            int year = event.value("year", 0);
-            std::string country = event.value("country", "<Unknown>");
-            std::string yearStr = (year == 0) ? "Unknown" : std::to_string(year);
-            std::string titleLine = "Title: " + title;
-            std::string yearLine = "Year: " + yearStr;
-            std::string countryLine = "Country: " + country;
+
+        while (current) {
+            std::string titleLine = "Title: " + current->title;
+            std::string yearLine = "Year: " + (current->year == 0 ? "Unknown" : std::to_string(current->year));
+            std::string countryLine = "Country: " + current->country;
+
             size_t maxLen = std::max({ titleLine.size(), yearLine.size(), countryLine.size() });
             std::string border = "+" + std::string(maxLen + 2, '-') + "+";
-            std::cout << border << std::endl;
+
             auto printLine = [&](const std::string& line) {
                 std::cout << "| " << line << std::string(maxLen - line.size(), ' ') << " |" << std::endl;
                 };
+
+            std::cout << border << std::endl;
             printLine(titleLine);
             printLine(yearLine);
             printLine(countryLine);
-            std::cout << border << std::endl << std::endl;
+            std::cout << border << "\n\n";
+
+            current = current->next;
         }
     }
 
-    //Filters events by country
-    void displayEventsByCountry(const std::string& countryFilter) {
-        json data = FileManager::loadJSON("events.json");
-        if (!data.is_array()) {
-            std::cerr << "Error: events.json is not valid.\n";
-            return;
-        }
-        bool anyFound = false;
-        for (const auto& event : data) {
+    void displayEventsByCountry(EventManager& manager, const std::string& countryFilter) {
+        Event* current = manager.getHead();
+        bool found = false;
 
-            std::string title = event.value("title", "<Unknown>");
+        while (current) {
+            if (current->country == countryFilter) {
+                found = true;
 
-            int year = event.value("year", 0);
-
-            std::string country = event.value("country", "<Unknown>");
-
-            if (country == countryFilter) {
-                anyFound = true;
-
-                std::string yearStr = (year == 0) ? "Unknown" : std::to_string(year);
-                std::string titleLine = "Title: " + title;
-                std::string yearLine = "Year: " + yearStr;
-                std::string countryLine = "Country: " + country;
+                std::string titleLine = "Title: " + current->title;
+                std::string yearLine = "Year: " + (current->year == 0 ? "Unknown" : std::to_string(current->year));
+                std::string countryLine = "Country: " + current->country;
 
                 size_t maxLen = std::max({ titleLine.size(), yearLine.size(), countryLine.size() });
-
                 std::string border = "+" + std::string(maxLen + 2, '-') + "+";
-                std::cout << border << std::endl;
 
                 auto printLine = [&](const std::string& line) {
                     std::cout << "| " << line << std::string(maxLen - line.size(), ' ') << " |" << std::endl;
                     };
 
+                std::cout << border << std::endl;
                 printLine(titleLine);
                 printLine(yearLine);
                 printLine(countryLine);
-
-                std::cout << border << std::endl << std::endl;
+                std::cout << border << "\n\n";
             }
+            current = current->next;
         }
-        if (!anyFound) {
+
+        if (!found) {
             std::cout << "No events found for country: " << countryFilter << std::endl;
         }
     }
 
-
-    //Filters events by year range
-    void displayEventsByYearRange(int startYear, int endYear) {
-        json data = FileManager::loadJSON("events.json");
-        if (!data.is_array()) {
-            std::cerr << "Error: events.json is not valid.\n";
-            return;
-        }
+    void displayEventsByYearRange(EventManager& manager, int startYear, int endYear) {
         if (startYear > endYear) {
-            std::cerr << "Invalid range: " << startYear << " > " << endYear << std::endl;
+            std::cout << "Invalid range: " << startYear << " > " << endYear << std::endl;
             return;
         }
-        bool anyFound = false;
-        for (const auto& event : data) {
 
-            std::string title = event.value("title", "<Unknown>");
+        Event* current = manager.getHead();
+        bool found = false;
 
-            int year = event.value("year", 0);
+        while (current) {
+            if (current->year >= startYear && current->year <= endYear) {
+                found = true;
 
-            std::string country = event.value("country", "<Unknown>");
-
-            if (year >= startYear && year <= endYear) {
-                anyFound = true;
-
-                std::string yearStr = (year == 0) ? "Unknown" : std::to_string(year);
-                std::string titleLine = "Title: " + title;
-                std::string yearLine = "Year: " + yearStr;
-                std::string countryLine = "Country: " + country;
+                std::string titleLine = "Title: " + current->title;
+                std::string yearLine = "Year: " + std::to_string(current->year);
+                std::string countryLine = "Country: " + current->country;
 
                 size_t maxLen = std::max({ titleLine.size(), yearLine.size(), countryLine.size() });
-
                 std::string border = "+" + std::string(maxLen + 2, '-') + "+";
-
-                std::cout << border << std::endl;
 
                 auto printLine = [&](const std::string& line) {
                     std::cout << "| " << line << std::string(maxLen - line.size(), ' ') << " |" << std::endl;
                     };
 
+                std::cout << border << std::endl;
                 printLine(titleLine);
                 printLine(yearLine);
                 printLine(countryLine);
-
-                std::cout << border << std::endl << std::endl;
+                std::cout << border << "\n\n";
             }
+            current = current->next;
         }
-        if (!anyFound) {
-            std::cout << "No events found in the range " << startYear << "-" << endYear << std::endl;
+
+        if (!found) {
+            std::cout << "No events found in the range " << startYear << " - " << endYear << std::endl;
         }
     }
 
+    void displayEventsByEra(EventManager& manager, const std::string& eraFilter) {
+        Event* current = manager.getHead();
+        bool found = false;
 
-    //Filters events by era
-    void displayEventsByEra(const std::string& eraFilter) {
-        json data = FileManager::loadJSON("events.json");
-        if (!data.is_array()) {
-            std::cerr << "Error: events.json is not valid.\n";
-            return;
-        }
-        bool anyFound = false;
-        for (const auto& event : data) {
+        while (current) {
+            if (determineEra(current->year) == eraFilter) {
+                found = true;
 
-            std::string title = event.value("title", "<Unknown>");
-
-            int year = event.value("year", 0);
-
-            std::string country = event.value("country", "<Unknown>");
-            std::string eventEra = determineEra(year);
-
-            if (eventEra == eraFilter) {
-                anyFound = true;
-
-                std::string yearStr = (year == 0) ? "Unknown" : std::to_string(year);
-                std::string titleLine = "Title: " + title;
-                std::string yearLine = "Year: " + yearStr;
-                std::string countryLine = "Country: " + country;
+                std::string titleLine = "Title: " + current->title;
+                std::string yearLine = "Year: " + std::to_string(current->year);
+                std::string countryLine = "Country: " + current->country;
 
                 size_t maxLen = std::max({ titleLine.size(), yearLine.size(), countryLine.size() });
-
                 std::string border = "+" + std::string(maxLen + 2, '-') + "+";
-                std::cout << border << std::endl;
 
                 auto printLine = [&](const std::string& line) {
                     std::cout << "| " << line << std::string(maxLen - line.size(), ' ') << " |" << std::endl;
                     };
 
+                std::cout << border << std::endl;
                 printLine(titleLine);
                 printLine(yearLine);
                 printLine(countryLine);
-
-                std::cout << border << std::endl << std::endl;
+                std::cout << border << "\n\n";
             }
+            current = current->next;
         }
-        if (!anyFound) {
+
+        if (!found) {
             std::cout << "No events found for era: " << eraFilter << std::endl;
         }
     }
 
-    // Searches for events whose title contains the given keyword (case-sensitive) and displays matching events.
-    void displayEventsByTitleKeyword(const std::string& keyword) {
-        json data = FileManager::loadJSON("events.json");
-        if (!data.is_array()) {
-            std::cerr << "Error: events.json is not valid.\n";
-            return;
-        }
-        bool anyFound = false;
-        for (const auto& event : data) {
-            std::string title = event.value("title", "<Unknown>");
+    void displayEventsByTitleKeyword(EventManager& manager, const std::string& keyword) {
+        Event* current = manager.getHead();
+        bool found = false;
 
-            if (title.find(keyword) != std::string::npos) {
-                anyFound = true;
-                int year = event.value("year", 0);
+        while (current) {
+            if (current->title.find(keyword) != std::string::npos) {
+                found = true;
 
-                std::string country = event.value("country", "<Unknown>");
-                std::string yearStr = (year == 0) ? "Unknown" : std::to_string(year);
-                std::string titleLine = "Title: " + title;
-                std::string yearLine = "Year: " + yearStr;
-                std::string countryLine = "Country: " + country;
+                std::string titleLine = "Title: " + current->title;
+                std::string yearLine = "Year: " + std::to_string(current->year);
+                std::string countryLine = "Country: " + current->country;
 
                 size_t maxLen = std::max({ titleLine.size(), yearLine.size(), countryLine.size() });
-
                 std::string border = "+" + std::string(maxLen + 2, '-') + "+";
-                std::cout << border << std::endl;
 
                 auto printLine = [&](const std::string& line) {
-                    std::cout << "| " << line
-                        << std::string(maxLen - line.size(), ' ')
-                        << " |" << std::endl;
+                    std::cout << "| " << line << std::string(maxLen - line.size(), ' ') << " |" << std::endl;
                     };
 
+                std::cout << border << std::endl;
                 printLine(titleLine);
                 printLine(yearLine);
                 printLine(countryLine);
-
-                std::cout << border << std::endl << std::endl;
+                std::cout << border << "\n\n";
             }
+            current = current->next;
         }
-        if (!anyFound) {
+
+        if (!found) {
             std::cout << "No events found with keyword: " << keyword << std::endl;
         }
     }
 
-    //Filters events by title
-    void showEventDetailsByTitle(const std::string& title) {
-        json data = FileManager::loadJSON("events.json");
-        if (!data.is_array()) {
-            std::cerr << "Error: events.json is not valid.\n";
-            return;
-        }
-
-        bool found = false;
-        for (auto& event : data) {
-            std::string eventTitle = event.value("title", "");
-            if (eventTitle == title) {
-                found = true;
-
-                int year = event.value("year", 0);
-                std::string yearStr = (year == 0) ? "Unknown" : std::to_string(year);
-                std::string country = event.value("country", "<Unknown>");
-                std::string description = event.value("description", "<Unknown>");
-                std::string prerequisite = event.value("prerequisite", "<Unknown>");
-                std::string consequence = event.value("consequence", "<Unknown>");
-                std::string author = event.value("author", "<Unknown>");
-
+    void showEventDetailsByTitle(EventManager& manager, const std::string& title) {
+        Event* current = manager.getHead();
+        while (current) {
+            if (current->title == title) {
                 std::cout << "\n===== Event Details =====\n";
-                std::cout << "Title:         " << eventTitle << std::endl;
-                std::cout << "Year:          " << yearStr << std::endl;
-                std::cout << "Country:       " << country << std::endl;
-                std::cout << "Description:   " << description << std::endl;
-                std::cout << "Prerequisite:  " << prerequisite << std::endl;
-                std::cout << "Consequence:   " << consequence << std::endl;
-                std::cout << "Author:        " << author << std::endl;
+                std::cout << "Title:         " << current->title << "\n";
+                std::cout << "Year:          " << current->year << "\n";
+                std::cout << "Country:       " << current->country << "\n";
+                std::cout << "Description:   " << current->description << "\n";
+                std::cout << "Prerequisite:  " << current->prerequisite << "\n";
+                std::cout << "Consequence:   " << current->consequence << "\n";
+                std::cout << "Author:        " << current->author << "\n";
                 std::cout << "=========================\n\n";
 
-                std::string unlockedArtifact = UserLogs::updateUserProgress(currentUsername, year);
-                if (!unlockedArtifact.empty()) {
-                    std::cout << "Achievement Unlocked: " << unlockedArtifact << "!" << std::endl;
+                std::string unlocked = UserLogs::updateUserProgress(currentUsername, current->year);
+                if (!unlocked.empty()) {
+                    std::cout << "Achievement Unlocked: " << unlocked << "!\n";
                     UserLogs::saveUserProgress();
                 }
 
-                if (author == currentUsername) {
+                if (current->author == currentUsername) {
                     std::cout << "You are the author of this event.\n";
                     std::cout << "Do you want to:\n";
                     std::cout << "  1) Edit the event\n";
                     std::cout << "  2) Delete the event\n";
                     std::cout << "  3) Cancel\n";
                     std::cout << "Enter your choice: ";
+
                     int choice;
                     std::cin >> choice;
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
                     if (choice == 1) {
-                        Event updatedEvent;
-                        updatedEvent.author = currentUsername;
+                        Event updated = *current;
 
-                        std::cout << "Enter new title (or press Enter to keep '" << eventTitle << "'): ";
-                        std::string newTitle;
-                        std::getline(std::cin, newTitle);
-                        updatedEvent.title = (newTitle.empty()) ? eventTitle : newTitle;
+                        std::cout << "Enter new title (or press Enter to keep '" << current->title << "'): ";
+                        std::string input;
+                        std::getline(std::cin, input);
+                        if (!input.empty()) updated.title = input;
 
-                        std::cout << "Enter new year (or 0 to keep " << year << "): ";
+                        std::cout << "Enter new year (or 0 to keep " << current->year << "): ";
                         int newYear;
                         std::cin >> newYear;
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                        updatedEvent.year = (newYear == 0) ? year : newYear;
+                        if (newYear != 0) updated.year = newYear;
 
                         std::cout << "Enter new description (or press Enter to keep current): ";
-                        std::string newDesc;
-                        std::getline(std::cin, newDesc);
-                        updatedEvent.description = (newDesc.empty()) ? description : newDesc;
+                        std::getline(std::cin, input);
+                        if (!input.empty()) updated.description = input;
 
                         std::cout << "Enter new country (or press Enter to keep current): ";
-                        std::string newCountry;
-                        std::getline(std::cin, newCountry);
-                        updatedEvent.country = (newCountry.empty()) ? country : newCountry;
+                        std::getline(std::cin, input);
+                        if (!input.empty()) updated.country = input;
 
                         std::cout << "Enter new prerequisite (or press Enter to keep current): ";
-                        std::string newPrereq;
-                        std::getline(std::cin, newPrereq);
-                        updatedEvent.prerequisite = (newPrereq.empty()) ? prerequisite : newPrereq;
+                        std::getline(std::cin, input);
+                        if (!input.empty()) updated.prerequisite = input;
 
                         std::cout << "Enter new consequence (or press Enter to keep current): ";
-                        std::string newConseq;
-                        std::getline(std::cin, newConseq);
-                        updatedEvent.consequence = (newConseq.empty()) ? consequence : newConseq;
+                        std::getline(std::cin, input);
+                        if (!input.empty()) updated.consequence = input;
 
-                        bool success = EventRepository::updateEvent(eventTitle, updatedEvent, currentUsername);
-                        if (success) {
+                        if (manager.updateEvent(current->title, updated, currentUsername)) {
                             std::cout << "Event updated successfully!\n";
                         }
                         else {
-                            std::cout << "Error: Could not update event.\n";
+                            std::cout << "Failed to update event.\n";
                         }
+
                     }
                     else if (choice == 2) {
-                        bool success = EventRepository::deleteEvent(eventTitle, currentUsername);
-                        if (success) {
+                        if (manager.deleteEvent(current->title, currentUsername)) {
                             std::cout << "Event deleted successfully!\n";
                         }
                         else {
-                            std::cout << "Error: Could not delete event.\n";
+                            std::cout << "Failed to delete event.\n";
                         }
                     }
                     else {
                         std::cout << "No changes made.\n";
                     }
                 }
-                break;
+                return;
             }
+            current = current->next;
         }
-        if (!found) {
-            std::cout << "Event not found with title: " << title << std::endl;
-        }
+
+        std::cout << "Event not found with title: " << title << "\n";
     }
 
 }
