@@ -1,10 +1,12 @@
 #pragma once
+#include "../../DAL/include/AIchat.h"
 #include "precompile.h"
 #include "../../BLL/include/register.h"
 #include "../../BLL/include/login.h"
 #include "../../BLL/include/eventManager.h"
 #include "../../DAL/include/eventDisplay.h"
 #include "../../DAL/include/timelineDisplay.h"
+
 
 class MainMenu {
 public:
@@ -26,6 +28,7 @@ public:
     void displayUserMenu();
     void createEventHandler();
     void browseEventsHandler();
+    void aiChatHandler();
 
 private:
     int choice;

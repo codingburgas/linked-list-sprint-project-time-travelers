@@ -1,6 +1,7 @@
 #pragma once
-#include "DAL.precompile.h"
 #include "../curl/curl.h"
+#include "DAL.precompile.h"
+#undef max
 
 class AIchat {
 public:

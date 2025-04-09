@@ -117,11 +117,11 @@ void MainMenu::displayUserMenu() {
     std::cout << std::setw(97) << "==========================================================================\n";
     std::cout << std::setw(97) << "|                                MAIN MENU                               |\n";
     std::cout << std::setw(97) << "==========================================================================\n";
-    std::cout << std::setw(97) << "|                                                                        |\n";
     std::cout << std::setw(97) << "|                           1. Create Event                              |\n";
     std::cout << std::setw(97) << "|                           2. Browse Events                             |\n";
     std::cout << std::setw(97) << "|                           3. Timeline                                  |\n";
-    std::cout << std::setw(97) << "|                           4. Logout                                    |\n";
+    std::cout << std::setw(97) << "|                           4. AI Chat                                   |\n";
+    std::cout << std::setw(97) << "|                           5. Logout                                    |\n";
     std::cout << std::setw(97) << "|                                                                        |\n";
     std::cout << std::setw(97) << "==========================================================================\n";
     std::cout << std::setw(60) << "Enter your choice: ";
@@ -139,6 +139,10 @@ void MainMenu::displayUserMenu() {
         timelineHandler();
         break;
     case 4:
+        AIchat::startChat();
+        displayUserMenu();
+        break;
+    case 5:
         clearScreen();
         displayMainMenu();
         break;
@@ -255,6 +259,21 @@ void MainMenu::timelineHandler() {
     std::cout << std::setw(97) << "==========================================================================\n";
 
     TimelineDisplay::displayTimeline();
+
+    std::cout << "Press Enter to return to menu...";
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.get();
+    displayUserMenu();
+}
+
+void MainMenu::aiChatHandler() {
+    clearScreen();
+    drawTeamName();
+    std::cout << std::setw(97) << "==========================================================================\n";
+    std::cout << std::setw(97) << "|                                AI CHAT                                 |\n";
+    std::cout << std::setw(97) << "==========================================================================\n";
+
+    AIchat::startChat();
 
     std::cout << "Press Enter to return to menu...";
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
