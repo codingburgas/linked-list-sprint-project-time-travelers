@@ -11,9 +11,11 @@
 #### The core idea behind TimeTravel is to create an interactive way for people—especially students and history enthusiasts—to connect with historical events and figures on a more personal level. Instead of passively reading about the past, users are placed in the role of a time traveler who can explore different eras, alter the flow of events, and engage in conversations with key historical figures.
  
 ## 📄 Documentation and Presentation
-<a href="https://www.microsoft.com/en-ww/microsoft-365/word"><img src="https://img.icons8.com/fluency/48/000000/microsoft-word-2019.png" alt="MS Word logo" width=20px /></a>[Documentation](Documents/TimeTravelers.odt)
+<a href="https://www.microsoft.com/en-ww/microsoft-365/word"><img src="https://img.icons8.com/fluency/48/000000/microsoft-word-2019.png" alt="MS Word logo" width=20px /></a>[Documentation](https://codingburgas-my.sharepoint.com/:w:/g/personal/aavezirova22_codingburgas_bg/EZKiuqL9mqNAsEaANJIntvABHi8qt26TX2A0JOBIxeo4Hg?e=66GmKp)
 <br>
-<a href="https://www.microsoft.com/en-us/microsoft-365/powerpoint"><img src="https://img.icons8.com/fluency/48/000000/microsoft-powerpoint-2019.png" alt="MS PowerPoint logo" width=20px ></a>[Presentation](Documents/TimeTravelers.pptx)
+<a href="https://www.microsoft.com/en-us/microsoft-365/powerpoint"><img src="https://img.icons8.com/fluency/48/000000/microsoft-powerpoint-2019.png" alt="MS PowerPoint logo" width=20px ></a>[Presentation](https://codingburgas-my.sharepoint.com/:p:/g/personal/aavezirova22_codingburgas_bg/EXkE3YUt2ABFs0i4eRwRcxMBCoz0OkUOS4DVSJ-u07sv5g?e=PCLkuj)
+<br>
+<a href="https://www.microsoft.com/en-us/microsoft-365/excel"><img src="https://img.icons8.com/fluency/48/000000/microsoft-excel-2019.png" alt="MS Excel logo" width=20px ></a>[QA Documentation](https://codingburgas-my.sharepoint.com/:x:/g/personal/aavezirova22_codingburgas_bg/EXEzMutFaDtBrjAVt_T3l3kBifZ8xRGPvs2SylwgzVgPxA?e=VDLuWA)
 
 ## 🌱 Team
 > 1. **Scrum trainer**	- **SBIvanov22** 
