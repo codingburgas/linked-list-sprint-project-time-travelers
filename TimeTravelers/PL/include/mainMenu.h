@@ -6,6 +6,7 @@
 #include "../../BLL/include/eventManager.h"
 #include "../../DAL/include/eventDisplay.h"
 #include "../../DAL/include/timelineDisplay.h"
+#include "../../BLL/include/reportManager.h"
 
 
 class MainMenu {
@@ -29,6 +30,7 @@ public:
     void createEventHandler();
     void browseEventsHandler();
     void aiChatHandler();
+    void reportMenuHandler();
 
 private:
     EventManager manager;

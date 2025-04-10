@@ -127,7 +127,8 @@ void MainMenu::displayUserMenu() {
     std::cout << std::setw(97) << "|                           2. Browse Events                             |\n";
     std::cout << std::setw(97) << "|                           3. Timeline                                  |\n";
     std::cout << std::setw(97) << "|                           4. AI Chat                                   |\n";
-    std::cout << std::setw(97) << "|                           5. Logout                                    |\n";
+    std::cout << std::setw(97) << "|                           5. Reports                                   |\n";
+    std::cout << std::setw(97) << "|                           6. Logout                                    |\n";
     std::cout << std::setw(97) << "|                                                                        |\n";
     std::cout << std::setw(97) << "==========================================================================\n";
     std::cout << std::setw(60) << "Enter your choice: ";
@@ -149,9 +150,11 @@ void MainMenu::displayUserMenu() {
         displayUserMenu();
         break;
     case 5:
+        reportMenuHandler();
+        break;
+    case 6:
         clearScreen();
         displayMainMenu();
-        break;
     default:
         std::cout << "Invalid input. Please try again!\n";
         sleepMs(1500);
@@ -291,5 +294,51 @@ void MainMenu::aiChatHandler() {
     std::cout << "Press Enter to return to menu...";
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cin.get();
+    displayUserMenu();
+}
+
+void MainMenu::reportMenuHandler() {
+    clearScreen();
+    drawTeamName();
+
+    std::cout << std::setw(97) << "==========================================================================\n";
+    std::cout << std::setw(97) << "|                              REPORT MENU                               |\n";
+    std::cout << std::setw(97) << "==========================================================================\n";
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "      1) Report all event titles\n";
+    std::cout << "      2) Report events by a certain topic\n";
+    std::cout << "      3) Report events that ended in victory for Bulgaria\n";
+    std::cout << "      4) Back to main menu\n";
+    std::cout << "      Enter your choice: ";
+    int reportChoice;
+    std::cin >> reportChoice;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    switch (reportChoice) {
+    case 1: {
+        ReportManager::listAllEventTitles();
+        system("pause");
+        break;
+    }
+    case 2: {
+        std::cout << "Enter topic keyword: ";
+        std::string topic;
+        std::getline(std::cin, topic);
+        ReportManager::listEventsByTopic(topic);
+        system("pause");
+        break;
+    }
+    case 3: {
+        ReportManager::listVictoryForBulgaria();
+        system("pause");
+        break;
+    }
+    default:
+        break;
+    }
+
     displayUserMenu();
 }

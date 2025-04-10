@@ -124,5 +124,14 @@
         "prerequisite": "High global travel, inadequate early containment, and zoonotic virus transmission from animals to humans.",
         "title": "COVID-19 Pandemic",
         "year": 2020
+    },
+    {
+        "author": "AniVez",
+        "consequence": "The victory at Pliska not only bolstered Bulgarian national pride but also paved the way for further territorial expansion and increased influence in the Balkans, shifting the regional balance of power in favor of Bulgaria.",
+        "country": "Bulgaria",
+        "description": "In one of its most renowned military triumphs, the Bulgarian army led by Khan Krum decisively defeated the Byzantine forces. The battle culminated in the death of the Byzantine Emperor Nicephorus I, marking a turning point in the Byzantine-Bulgarian wars.",
+        "prerequisite": "Persistent border tensions and previous conflicts between the Byzantine Empire and Bulgaria, combined with Khan Krum's innovative military tactics and unified army, set the stage for a decisive confrontation.",
+        "title": "Battle of Pliska",
+        "year": 811
     }
 ]
